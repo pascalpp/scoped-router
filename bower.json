@@ -1,0 +1,22 @@
+{
+  "name": "scoped-router",
+  "version": "0.0.0",
+  "homepage": "https://github.com/pascalpp/scoped-router",
+  "authors": [
+    "Pascal <pascal@pascal.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "marionette": "~2.3.1",
+    "requirejs": "~2.1.15",
+    "requirejs-text": "~2.0.13"
+  }
+}

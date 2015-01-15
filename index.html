@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Tabbed Views and Scoped Routing</title>
+</head>
+<body>
+
+<script src="bower_components/requirejs/require.js"></script>
+<script>
+(function(requirejs) {
+	/* global requirejs */
+	'use strict';
+
+	var config = {
+		baseUrl: '/src',
+		paths: {
+			'jquery': '../bower_components/jquery/dist/jquery',
+			'backbone': '../bower_components/backbone/backbone',
+			'marionette': '../bower_components/marionette/lib/backbone.marionette',
+			'underscore': '../bower_components/underscore/underscore',
+			'text': '../bower_components/requirejs-text/text',
+		}
+	};
+
+	requirejs.config(config);
+})(requirejs);
+</script>
+<script>
+	require(['main']);
+</script>
+
+</body>
+</html>

@@ -5,17 +5,7 @@ define(function(require) {
 	var
 	Backbone		= require('backbone'),
 	Marionette		= require('marionette'),
-	Router			= require('lib/router'),
-	BaseModel		= require('model/basemodel'),
-	Log				= require('log');
-
-	Log.module('behavior/tabs');
-	var log = Log.create('tabs', 'background-color:purple;color:white');
-
-	/* TODO
-	figure out tab.visible idea
-	for now, not properly using it. up to the parent view to reset this.tabs.collection as needed
-	*/
+	Router			= require('./router');
 
 
 	var controller;
@@ -24,7 +14,7 @@ define(function(require) {
 		initialize: function() {
 			log('controller initialize');
 			this.cid = _.uniqueId('controller');
-			this.scope_model = new BaseModel();
+			this.scope_model = new Backbone.Model();
 		},
 		setCurrentTabIdForScope: function(scope, tab_id) {
 			if (! scope) return log.error('scope required');
@@ -37,7 +27,7 @@ define(function(require) {
 	});
 
 
-	var Tab = BaseModel.extend({
+	var Tab = Backbone.Model.extend({
 		defaults: {
 			destroy: true,
 			viewOptions: {},
@@ -46,7 +36,7 @@ define(function(require) {
 
 		initialize: function() {
 			// inherit superclass initialize
-			BaseModel.prototype.initialize.apply(this, arguments);
+			Backbone.Model.prototype.initialize.apply(this, arguments);
 
 			// if view attribute is not a generator, set destroy to false
 			// so view can be re-used. not advisable for most use cases.
@@ -242,7 +232,7 @@ define(function(require) {
 			});
 
 			// set up view model and tablist
-			this.model = new BaseModel({ current_tab_id: this.options.initial_tab_id });
+			this.model = new Backbone.Model({ current_tab_id: this.options.initial_tab_id });
 			this.collection = new TabList();
 
 			_.bindAll(this, 'autoShowFirstTab');

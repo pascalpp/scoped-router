@@ -21,7 +21,6 @@ define(function(require) {
 
 	var Router = Marionette.AppRouter.extend({
 
-		// need to audit this when upgrading Marionette `upgrade:marionette:audit`
 		initialize: function(options) {
 			Marionette.AppRouter.prototype.initialize.apply(this, arguments);
 
