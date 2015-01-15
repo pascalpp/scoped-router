@@ -12,13 +12,13 @@ define(function(require) {
 
 	var Controller = Marionette.Controller.extend({
 		initialize: function() {
-			log('controller initialize');
+			console.log('controller initialize');
 			this.cid = _.uniqueId('controller');
 			this.scope_model = new Backbone.Model();
 		},
 		setCurrentTabIdForScope: function(scope, tab_id) {
-			if (! scope) return log.error('scope required');
-			if (! tab_id) return log.error('tab_id required');
+			if (! scope) throw 'scope required';
+			if (! tab_id) throw 'tab_id required';
 			this.scope_model.set(scope, tab_id);
 		},
 		getCurrentTabIdForScope: function(scope) {
@@ -44,7 +44,7 @@ define(function(require) {
 			//log(this.get('id'), this.get('destroy'));
 
 			this.on('invalid', function() {
-				log.error(this.get('id'), this.validationError);
+				console.error(this.get('id'), this.validationError);
 			});
 
 			if (this.get('id') === 'saved') window.footab = this; // DNR
@@ -87,7 +87,7 @@ define(function(require) {
 	var ButtonBarItemView = Marionette.ItemView.extend({
 		tagName: 'span',
 		className: 'button',
-		template: _.template('{{ data.label }}'),
+		template: _.template('<%= label %>'),
 		initialize: function() {
 			this.$el.addClass('tabset-item');
 		},
@@ -111,7 +111,7 @@ define(function(require) {
 			window.foobuttons = this; // DNR
 		},
 		onEvent: function() {
-			log(arguments);
+			console.log(arguments);
 		},
 		childEvents: {
 			'item:click': 'onClickItem'
@@ -120,7 +120,7 @@ define(function(require) {
 			this.tabs.setCurrentTabId(child.model.get('id'));
 		},
 		setActiveItem: function() {
-			log(this.tabs.options.scope, 'setActiveItem');
+			console.log(this.tabs.options.scope, 'setActiveItem');
 			this.$el.find('.active').removeClass('active');
 			var tab = this.tabs.getCurrentTab();
 			if (tab) {
@@ -159,7 +159,7 @@ define(function(require) {
 
 	var MenuItemView = Marionette.ItemView.extend({
 		tagName: 'option',
-		template: _.template('{{ data.label }}'),
+		template: _.template('<%= label %>'),
 		initialize: function() {
 			this.$el.attr('value', this.model.cid);
 		}
@@ -209,7 +209,7 @@ define(function(require) {
 			if (! this.options.region) throw new Error('Tabs behavior requires a region');
 
 			this.cid = _.uniqueId('tabs');
-			log('tabs init', this.options.scope, this.cid);
+			console.log('tabs init', this.options.scope, this.cid);
 			this.view.tabs = this;
 
 
@@ -242,7 +242,7 @@ define(function(require) {
 		},
 
 		onShow: function() {
-			log('tabs show');
+			console.log('tabs show');
 
 			// set up model events
 			this.listenTo(this.model, 'change:current_tab_id', this.onChangeCurrentTabId);
@@ -257,12 +257,12 @@ define(function(require) {
 		},
 
 		onDestroy: function() {
-			log('tabs destroy');
+			console.log('tabs destroy');
 			if (this.router) this.router.destroy();
 		},
 
 		onChangeCurrentTabId: function(model, tab_id, options) {
-			log('onChangeCurrentTabId', arguments);
+			console.log('onChangeCurrentTabId', arguments);
 			this.showCurrentTab(options);
 			controller.setCurrentTabIdForScope(this.options.scope, this.model.get('current_tab_id'));
 		},
@@ -292,13 +292,13 @@ define(function(require) {
 		},
 
 		showCurrentTab: function(options) {
-			log('showCurrentTab', this.options.scope, options);
+			console.log('showCurrentTab', this.options.scope, options);
 			options = options || {};
 
 			var tab = this.getCurrentTab();
 
 			if (tab && tab.isValid()) {
-				if (tab.get('shown')) return log('tab already showing');
+				if (tab.get('shown')) return console.log('tab already showing');
 
 				var last_tab_id = this.model.get('last_tab_id'),
 					last_tab = this.getTabById(last_tab_id);

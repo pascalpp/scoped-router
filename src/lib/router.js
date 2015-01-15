@@ -2,13 +2,8 @@ define(function(require) {
 	'use strict';
 
 	/* MODULE DEPENDENCIES */
-	var
-	Backbone		= require('backbone'),
-	Marionette		= require('marionette'),
-	Log				= require('log');
-
-	Log.module('lib/router');
-	var log = Log.create('router');
+	var Backbone = require('backbone');
+	var Marionette = require('marionette');
 
 
 	// override Backbone.History.prototype.route
@@ -32,12 +27,9 @@ define(function(require) {
 				// have to defer checkState so that rest of constructor can complete first
 				_.defer(this.checkState);
 			} else {
-				log('Backbone.history not started yet');
-				// DNR TODO why not just start history here?
-				// this could obviate the need for the `router:done` event
-				// would require that we use this router everywhere, or at least in the app itself
-				// but `router:done` isn't scalable, since modules can't be sure their router is first
-				// so yeah we should do this so modules can make routers whenever they want
+				console.log('Backbone.history not started yet');
+				if (! Backbone.history) Backbone.history = new Backbone.History();
+				Backbone.history.start({ pushState: true });
 			}
 		},
 
@@ -118,7 +110,7 @@ define(function(require) {
 				re = new RegExp(scope, 'i');
 				if (! current_fragment.match(re)) {
 					if (! options.force) {
-						log.error('Tab URL is out of scope.', scope, current_fragment);
+						console.error('Tab URL is out of scope.', scope, current_fragment);
 						return;
 					}
 				}
@@ -128,7 +120,7 @@ define(function(require) {
 			// use `force: true` to force overwrite
 			re = new RegExp(fragment);
 			if (current_fragment.match(re)) {
-				// log('URL is already in place, no need to write');
+				// console.log('URL is already in place, no need to write');
 				if (! options.force) return;
 			}
 
@@ -150,12 +142,12 @@ define(function(require) {
 		// custom destroy method
 		// removes any handlers that belong to this router
 		destroy: function() {
-			log('destroy router for scope', this.options.scope);
-			log('Backbone.history.handlers.length', Backbone.history.handlers.length);
+			console.log('destroy router for scope', this.options.scope);
+			console.log('Backbone.history.handlers.length', Backbone.history.handlers.length);
 			Backbone.history.handlers = _.filter(Backbone.history.handlers, function(handler) {
 				return (handler.router !== this);
 			}, this);
-			log('Backbone.history.handlers.length', Backbone.history.handlers.length);
+			console.log('Backbone.history.handlers.length', Backbone.history.handlers.length);
 		}
 
 	});

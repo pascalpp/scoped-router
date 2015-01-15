@@ -1,5 +1,6 @@
 var path = require('path');
 var unwrap = require('unwrap');
+var modRewrite = require('connect-modrewrite');
 
 module.exports = function(grunt) {
 
@@ -16,7 +17,17 @@ module.exports = function(grunt) {
           livereload: true,
           port: 9000,
           hostname: '*',
-        }
+        },
+        livereload: {
+            options: {
+                middleware: function (connect) {
+                  return [
+                    modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png$ /slides/index.html [L]'])
+                  ];
+                }
+            }
+        },
+
       }
     },
 
@@ -76,9 +87,9 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: [
-		  'src/**/*.js',
-		  'spec/**/*.js',
-		  'demo/**/*.js',
+          'src/**/*.js',
+          'spec/**/*.js',
+          'demo/**/*.js',
           // Exclude the following
           '!foo/**/*',
         ],
