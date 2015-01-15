@@ -21,14 +21,14 @@ define(function(require) {
 							id: 'slide1',
 							label: 'Slide 1',
 							view: Marionette.LayoutView.extend({
-								template: _.template('Slide 1')
+								template: _.template('Content for slide 1')
 							}),
 						},
 						{
 							id: 'slide2',
 							label: 'Slide 2',
 							view: Marionette.LayoutView.extend({
-								template: _.template('Slide 2')
+								template: _.template('Content for slide 2')
 							}),
 						},
 					],
