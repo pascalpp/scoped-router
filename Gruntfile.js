@@ -18,16 +18,6 @@ module.exports = function(grunt) {
           port: 9000,
           hostname: '*',
         },
-        livereload: {
-            options: {
-                middleware: function (connect) {
-                  return [
-                    modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png$ /slides/index.html [L]'])
-                  ];
-                }
-            }
-        },
-
       }
     },
 

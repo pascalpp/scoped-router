@@ -17,7 +17,7 @@ define(function(require) {
 			this.scope_model = new Backbone.Model();
 		},
 		setCurrentTabIdForScope: function(scope, tab_id) {
-			if (! scope) throw 'scope required';
+			if (! scope) return;
 			if (! tab_id) throw 'tab_id required';
 			this.scope_model.set(scope, tab_id);
 		},
@@ -201,7 +201,6 @@ define(function(require) {
 			// validate options
 			_.defaults(this.options, {
 				tabs: [],
-				scope: '',
 				show_initial_tab: true,
 				initial_tab_id: '',
 				wraparound: false
@@ -217,19 +216,21 @@ define(function(require) {
 			if (! controller) controller = new Controller();
 
 			// if this.options.initial_tab_id isn't set explicitly,
-			// use the last tab shown for this scope, if it a previous tab instance set it
+			// use the last tab shown for this scope, if defined by a previous tab instance
 			if (! this.options.initial_tab_id) {
 				var initial_tab_id = controller.getCurrentTabIdForScope(this.options.scope);
 				if (initial_tab_id) this.options.initial_tab_id = initial_tab_id;
 			}
 
-			this.router = new Router({
-				controller: this,
-				scope: this.options.scope,
-				appRoutes: {
-					'(:tab_id)(/)(*params)': 'routeTabId'
-				}
-			});
+			if (! _.isUndefined(this.options.scope)) {
+				this.router = new Router({
+					controller: this,
+					scope: this.options.scope,
+					appRoutes: {
+						'(:tab_id)(/)(*params)': 'routeTabId'
+					}
+				});
+			}
 
 			// set up view model and tablist
 			this.model = new Backbone.Model({ current_tab_id: this.options.initial_tab_id });
@@ -396,6 +397,7 @@ define(function(require) {
 		},
 
 		setHistory: function(options) {
+			if (! this.router) return;
 			var tab_id = this.model.get('current_tab_id');
 			this.router.navigate(tab_id, options);
 		}
