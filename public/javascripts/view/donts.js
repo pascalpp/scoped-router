@@ -13,8 +13,8 @@ define(function(require) {
 	}
 
 	var slides = [
-		{ id: 'goals', label: 'Goals' },
-		{ id: 'examples', label: 'Examples' },
+		{ id: 'goals', label: 'Don’t One' },
+		{ id: 'examples', label: 'Don’t Two' },
 	];
 
 	_.each(slides, function(slide) {
@@ -23,13 +23,13 @@ define(function(require) {
 		}
 	});
 
-	var SlidesView = TabbedView.extend({
+	var DontsView = TabbedView.extend({
 		tabOptions: {
-			scope: 'slides',
+			scope: 'donts',
 			tabs: slides
 		}
 	});
 
-	return SlidesView;
+	return DontsView;
 
 });

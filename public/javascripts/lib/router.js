@@ -32,7 +32,7 @@ define(function(require) {
 				// this tells Backbone.history to check the current fragment for any matching routes
 				Backbone.history.loadUrl();
 			} else {
-				console.log('Backbone.history not started yet');
+				// console.log('Backbone.history not started yet');
 				if (! Backbone.history) Backbone.history = new Backbone.History();
 				Backbone.history.start({ pushState: true });
 			}
@@ -136,12 +136,12 @@ define(function(require) {
 		// custom destroy method
 		// removes any handlers that belong to this router
 		destroy: function() {
-			console.log('destroy router for scope', this.options.scope);
-			console.log('Backbone.history.handlers.length', Backbone.history.handlers.length);
+			// console.log('destroy router for scope', this.options.scope);
+			// console.log('Backbone.history.handlers.length', Backbone.history.handlers.length);
 			Backbone.history.handlers = _.filter(Backbone.history.handlers, function(handler) {
 				return (handler.router !== this);
 			}, this);
-			console.log('Backbone.history.handlers.length', Backbone.history.handlers.length);
+			// console.log('Backbone.history.handlers.length', Backbone.history.handlers.length);
 		}
 
 	});

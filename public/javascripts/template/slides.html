@@ -1,26 +1,36 @@
-<script class="slide-1">
-<h2>The Problem</h2>
-
-<p>We needed a way to create tabbed views, with a configurable number of tabs, and with routes to link directly to a specific tab. We also needed a way to nest tabbed views, and to route directly to any nested tab.</p>
-
-<p>This slideshow is an example of a tabbed view. Below is a nested tabbed view.</p>
-
-<div class="tabset-region">[ insert nest tab view here ]</div>
-
+<script class="aboutme">
+	<h1>About Me</h1>
+	<img src="/images/aboutme.png">
+	<div class="notes">
+		My name is Pascal.
+		I’m a frontend developer for about.me,
+		which lets you easily make a one-page website all about you and your interests.
+		We’ve been migrating our entire product to Backbone and Marionette,
+		piece by piece, over the last year.
+	</div>
 </script>
 
-<script class="slide-2">
-<h2>Slide 2</h2>
+<script class="goals">
+	<h1>What we wanted to do</h1>
+	<ul>
+		<li>Display Marionette Views in a tabbed interface</li>
+		<li>Enable or disable individual tabs dynamically</li>
+		<li>Nest tabbed views, infinitely</li>
+		<li>Re-show the last active tab when returning to a tabbed view</li>
+		<li>Link directly link to any tab in the view hierarchy</li>
+	</ul>
+
+	<div class="notes">
+		<p>We needed a way to display Marionette views in a tabbed user interface, with routing to link directly to a given tab. We also needed to nest multiple levels of tabbed views, with nested routing so we can link directly to any nested view in the hierarchy.</p>
+		<p>We also wanted to conditionalize the tabs, so a tab could be marked as invalid and not be shown. The route for an invalid tab should do nothing.</p>
+	</div>
 </script>
 
-<script class="slide-3">
-<h2>Slide 3</h2>
-</script>
-
-<script class="slide-4">
-<h2>Slide 4</h2>
-</script>
-
-<script class="slide-5">
-<h2>Slide 5</h2>
+<script class="examples">
+	<h1>Examples</h1>
+	<ul>
+		<li>This demonstration is a tabbed view.</li>
+		<li>These slides are a nested tabbed view.</li>
+		<li>Here’s another nested tabbed view.</li>
+	</ul>
 </script>

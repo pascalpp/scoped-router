@@ -11,7 +11,7 @@ define(function(require) {
 
 	var Controller = Marionette.Controller.extend({
 		initialize: function() {
-			console.log('controller initialize');
+			//console.log('controller initialize');
 			this.cid = _.uniqueId('controller');
 			this.scope_model = new Backbone.Model();
 		},
@@ -87,9 +87,6 @@ define(function(require) {
 		tagName: 'span',
 		className: 'button',
 		template: _.template('<%= label %>'),
-		initialize: function() {
-			this.$el.addClass('tabset-item');
-		},
 		triggers: {
 			'click': 'item:click'
 		}
@@ -109,7 +106,7 @@ define(function(require) {
 			window.foobuttons = this; // DNR
 		},
 		onEvent: function() {
-			console.log(arguments);
+			//console.log(arguments);
 		},
 		childEvents: {
 			'item:click': 'onClickItem'
@@ -118,7 +115,7 @@ define(function(require) {
 			this.tabs.setCurrentTabId(child.model.get('id'));
 		},
 		setActiveItem: function() {
-			console.log(this.tabs.options.scope, 'setActiveItem');
+			//console.log(this.tabs.options.scope, 'setActiveItem');
 			this.$el.find('.active').removeClass('active');
 			var tab = this.tabs.getCurrentTab();
 			if (tab) {
@@ -206,7 +203,7 @@ define(function(require) {
 			if (! this.options.region) throw new Error('Tabs behavior requires a region');
 
 			this.cid = _.uniqueId('tabs');
-			console.log('tabs init', this.options.scope, this.cid);
+			//console.log('tabs init', this.options.scope, this.cid);
 			this.view.tabs = this;
 
 
@@ -241,7 +238,7 @@ define(function(require) {
 		},
 
 		onShow: function() {
-			console.log('tabs show');
+			//console.log('tabs show');
 
 			// set up model events
 			this.listenTo(this.model, 'change:current_tab_id', this.onChangeCurrentTabId);
@@ -256,12 +253,12 @@ define(function(require) {
 		},
 
 		onDestroy: function() {
-			console.log('tabs destroy');
+			//console.log('tabs destroy');
 			if (this.router) this.router.destroy();
 		},
 
 		onChangeCurrentTabId: function(model, tab_id, options) {
-			console.log('onChangeCurrentTabId', arguments);
+			//console.log('onChangeCurrentTabId', arguments);
 			this.showCurrentTab(options);
 			controller.setCurrentTabIdForScope(this.options.scope, this.model.get('current_tab_id'));
 		},
@@ -291,13 +288,13 @@ define(function(require) {
 		},
 
 		showCurrentTab: function(options) {
-			console.log('showCurrentTab', this.options.scope, options);
+			//console.log('showCurrentTab', this.options.scope, options);
 			options = options || {};
 
 			var tab = this.getCurrentTab();
 
 			if (tab && tab.isValid()) {
-				if (tab.get('shown')) return console.log('tab already showing');
+				if (tab.get('shown')) return; //console.log('tab already showing');
 
 				var last_tab_id = this.model.get('last_tab_id'),
 					last_tab = this.getTabById(last_tab_id);
