@@ -2,10 +2,9 @@ define(function(require) {
 	'use strict';
 
 	/* MODULE DEPENDENCIES */
-	var
-		Backbone		= require('backbone'),
-		Marionette		= require('marionette'),
-		Router			= require('./router');
+	var	Backbone = require('backbone');
+	var Marionette = require('marionette');
+	var Router = require('./router');
 
 
 	var controller;
@@ -100,7 +99,6 @@ define(function(require) {
 		className: 'buttonbar',
 		childView: ButtonBarItemView,
 		initialize: function(options) {
-			this.rc = 0;
 			if (! options.tabs) throw new Error('Tabnav requires tabs.');
 			this.tabs = options.tabs;
 			this.collection = options.tabs.collection;

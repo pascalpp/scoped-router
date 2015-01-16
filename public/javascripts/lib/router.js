@@ -20,26 +20,22 @@ define(function(require) {
 			Marionette.AppRouter.prototype.initialize.apply(this, arguments);
 
 			_.bindAll(this, 'checkState');
+			// initialize is called first in the Marionette.AppRouter constructor, before appRoutes have been processed
+			// have to defer checkState so that rest of constructor can complete first
+			_.defer(this.checkState);
+		},
+
+		checkState: function() {
 			if (Backbone.History.started) {
 				// if this router was initialized after history started,
 				// it might have added a route that need to be triggered
-				// initialize is called first in the Marionette.AppRouter constructor, before appRoutes have been processed
-				// have to defer checkState so that rest of constructor can complete first
-				_.defer(this.checkState);
+				// this tells Backbone.history to check the current fragment for any matching routes
+				Backbone.history.loadUrl();
 			} else {
 				console.log('Backbone.history not started yet');
 				if (! Backbone.history) Backbone.history = new Backbone.History();
 				Backbone.history.start({ pushState: true });
 			}
-		},
-
-		checkState: function() {
-			// make sure Backbone.history exists; not needed but just to be safe
-			if (! Backbone.history) Backbone.history = new Backbone.History();
-
-			// this tells Backbone.history to check the current fragment for any matching routes
-			// need to audit this when upgrading Backbone `upgrade:backbone:audit`
-			Backbone.history.loadUrl();
 		},
 
 		// override Backbone.Router.route method
@@ -66,7 +62,6 @@ define(function(require) {
 
 		// override Marionette.AppRouter.prototype._addAppRoute
 		// to prepend `scope` to all routes
-		// need to audit this when upgrading Marionette `upgrade:marionette:audit`
 		_addAppRoute: function(controller, route, methodName) {
 			if (this.options.scope) {
 				route = this.options.scope + '/' + route;
@@ -76,7 +71,6 @@ define(function(require) {
 
 		// override Marionette.AppRouter.prototype.navigate
 		// to prevent out-of-scope URL changes, and other automated niceties
-		// need to audit this when upgrading Marionette `upgrade:marionette:audit`
 		navigate: function(fragment, options) {
 			/* jshint maxcomplexity: 11 */
 			options = options || {};

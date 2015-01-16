@@ -31,7 +31,7 @@ define(function(require) {
 			var slides = [];
 			for (var i=1; i<=5; i++) {
 				var slide = {
-					id: i,
+					id: 'slide'+i,
 					label: i,
 					view: Marionette.LayoutView.extend({
 						template: _.template($(Template).filter('script.slide-'+i).html())
@@ -44,7 +44,7 @@ define(function(require) {
 				Tabs: {
 					behaviorClass: Tabs,
 					wraparound: true,
-					xscope: 'slides',
+					scope: 'slides',
 					region: this.content,
 					tabs: slides,
 					nav: {
