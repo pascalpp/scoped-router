@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+var debug = require('debug')('scoped-router-node');
+var app = require('../app');
+var copy = require('copy-files');
+require('colors');
+
+app.set('port', process.env.PORT || 9000);
+
+copy({
+  files: {
+    'backbone.js': 'node_modules/backbone/backbone.js',
+    'backbone.marionette.js': 'node_modules/backbone.marionette/lib/backbone.marionette.js',
+    'jquery.js': 'node_modules/jquery/dist/jquery.js',
+    'underscore.js': 'node_modules/underscore/underscore.js',
+    'require.js': 'node_modules/requirejs/require.js',
+    'text.js': 'node_modules/requirejs-text/text.js'
+  },
+  dest: 'public/javascripts/vendor'
+}, function (err) {
+  console.log('All JS libs copied, Pascal!');
+});
+
+
+
+var server = app.listen(app.get('port'), function() {
+  console.log('      _______________________'.magenta);
+  console.log('()===(                      (@===()'.magenta);
+  console.log('     \'______________________\'|'.magenta);
+  console.log('       |                     |'.magenta);
+  console.log('       |  Pascal\'s          |'.magenta);
+  console.log('       |  awesome app        |'.magenta);
+  console.log('       |  is now             |'.magenta);
+  console.log('       |  running!           |'.magenta);
+  console.log('       |                     |'.magenta);
+  console.log('       |                     |'.magenta);
+  console.log('       |             love,   |'.magenta);
+  console.log('       |    Channing Tatum   |'.magenta);
+  console.log('      _)_____________________|'.magenta);
+  console.log('()===(                      (@===()'.magenta);
+  console.log('      \'----------------------\''.magenta);
+  console.log('                                '.magenta);
+
+
+  console.log('Check out Pascal\'s app at http://localhost:' + server.address().port);
+  console.log('Press Ctrl+C to stop.');
+
+  debug('Express server listening on port ' + server.address().port);
+});
