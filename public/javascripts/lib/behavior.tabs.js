@@ -3,9 +3,9 @@ define(function(require) {
 
 	/* MODULE DEPENDENCIES */
 	var
-	Backbone		= require('backbone'),
-	Marionette		= require('marionette'),
-	Router			= require('./router');
+		Backbone		= require('backbone'),
+		Marionette		= require('marionette'),
+		Router			= require('./router');
 
 
 	var controller;
@@ -100,7 +100,7 @@ define(function(require) {
 		className: 'buttonbar',
 		childView: ButtonBarItemView,
 		initialize: function(options) {
-		    this.rc = 0;
+			this.rc = 0;
 			if (! options.tabs) throw new Error('Tabnav requires tabs.');
 			this.tabs = options.tabs;
 			this.collection = options.tabs.collection;
@@ -288,7 +288,7 @@ define(function(require) {
 
 
 		getCurrentTab: function() {
-		    var tab_id = this.model.get('current_tab_id');
+			var tab_id = this.model.get('current_tab_id');
 			return this.getTabById(tab_id);
 		},
 
@@ -367,10 +367,10 @@ define(function(require) {
 
 		autoShowFirstTab: function() {
 			if (this.options.show_initial_tab) {
- 				if (this.model.get('current_tab_id')) {
- 					// DNR TODO this is causing tabs to render twice in some cases e.g. style tab of edit panel
- 					// but without it, no tab is shown when closing and reopening the edit panel
- 					// fixed by tracking 'shown' state on tab model. not perfect but will do for now
+				if (this.model.get('current_tab_id')) {
+					// DNR TODO this is causing tabs to render twice in some cases e.g. style tab of edit panel
+					// but without it, no tab is shown when closing and reopening the edit panel
+					// fixed by tracking 'shown' state on tab model. not perfect but will do for now
 					this.showCurrentTab();
 				} else {
 					var first_tab = this.collection.first();
