@@ -3,7 +3,7 @@ define(function(require) {
 	var Marionette = require('marionette');
 	var Router = require('lib/router');
 	var Tabs = require('lib/behavior.tabs');
-	var Template = require('text!slides.html');
+	var Template = require('text!template/slides.html');
 
 	var SlidesView = Marionette.LayoutView.extend({
 		template: _.template('<div class="tab-nav"></div><div class="tab-content"></div>'),
@@ -62,7 +62,5 @@ define(function(require) {
 	var slides_view = new SlidesView();
 
 	main_region.show(slides_view);
-
-	window.slides = slides_view;
 
 });
