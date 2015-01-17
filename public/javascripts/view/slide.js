@@ -19,7 +19,7 @@ define(function(require) {
 			console.log('');
 			console.log('');
 			console.log('—————————————————————————————————————');
-			console.log(this.$('h1').first().text());
+			console.log(this.$('h1,h2').first().text());
 			console.log('');
 			_.each(notes, function(note) {
 				console.log(note.trim());

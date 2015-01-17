@@ -6,25 +6,24 @@ define(function(require) {
 
 
 	var nested_slides = [
-		{ id: 'apple', label: 'A' },
-		{ id: 'banana', label: 'B'  },
-		{ id: 'carrot', label: 'C'  },
-		{ id: 'moreexamples', label: 'More' },
+		{ id: 'apple', label: 'Apple' },
+		{ id: 'banana', label: 'Banana'  },
+		{ id: 'carrot', label: 'Carrot'  },
 	];
 
 	addViews(nested_slides);
 
 	var NestedView = TabbedView.extend({
 		tabOptions: {
-			scope: 'tabs/examples',
+			scope: 'tabs/anatomy',
 			tabs: nested_slides
 		}
 	});
 
 
-	var ExampleView = getView('examples');
+	var AnatomyView = getView('anatomy');
 
-	ExampleView = ExampleView.extend({
+	AnatomyView = AnatomyView.extend({
 		regions: {
 			'nested_region': '.nested-region'
 		},
@@ -36,7 +35,8 @@ define(function(require) {
 
 	var slides = [
 		{ id: 'goals', label: 'Goals' },
-		{ id: 'examples', label: 'Examples', view: ExampleView },
+		{ id: 'anatomy', label: 'Anatomy', view: AnatomyView },
+		{ id: 'examples', label: 'Examples' },
 	];
 
 	addViews(slides);

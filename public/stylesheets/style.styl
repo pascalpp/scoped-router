@@ -39,7 +39,7 @@ ul li
 	line-height: 24px
 	-webkit-user-select: none
 	user-select: none
-	border: 1px solid rgba(0,0,0,0.1)
+	border: 3px solid rgba(0,0,0,0.1)
 	border-bottom: none
 
 .buttonbar .button.active 
@@ -49,23 +49,28 @@ ul li
 	font-size: 20px
 	padding: 10px 15px
 	margin-top: -2px
-	margin-bottom: -1px
-	border-color: rgba(0,0,0,0.3)
+	margin-bottom: -3px
+	border-color: rgba(0,0,0,0.2)
 
 
-.tab 
+.tab
 	background-color: #fff
 	padding: 30px
 	border-radius: 5px
-	border: 1px solid rgba(0,0,0,0.3)
-	min-height: 600px
+	border: 3px solid rgba(0,0,0,0.2)
+	min-height: 550px
 
 .tab .tab
-	padding-bottom: 100px
-	min-height: 556px
+	border-color: rgba(0,0,0,0.1)
+	min-height: 550px
 .tab .tab .tab
 	padding: 30px
 	min-height: 0px
+	font-size: 18px
+.tab .buttonbar .button
+	border-color: rgba(0,0,0,0.02)
+.tab .buttonbar .button.active
+	border-color: rgba(0,0,0,0.1)
 
 
 
@@ -90,25 +95,52 @@ ul li
 	align-content: space-between
 	padding: 30px 100px
 
-.tab .tab-examples
+.tab-anatomy
 	padding-bottom: 30px
 
+.tab-anatomy .nested-region
+	margin-left: -25px
+	margin-top: -50px
 
-.tab-examples .nested-region
-	margin-left: 42px
-
-.tab-examples .tab
-	width: 400px
-	height: 195px
-	background-position: center right
+.tab-anatomy .tab
+	height: 400px
+	padding-right: 280px !important
+	background-position: top right
 	background-repeat: no-repeat
 
-.tab-examples .tab-apple
+.tab-anatomy .tab-apple
 	background-image: url(/images/apple.png)
-.tab-examples .tab-banana
+.tab-anatomy .tab-banana
 	background-image: url(/images/banana.png)
-.tab-examples .tab-carrot
+.tab-anatomy .tab-carrot
+	background-position: top right
 	background-image: url(/images/carrot.png)
+	
+.tab-anatomy .buttonbar
+	border: 2px solid transparent
+	padding: 10px
+	margin: 0
+	margin-left: 450px
+	margin-bottom: -24px
+	width: 270px
+	position: relative
+	z-index: 1
 
-.tab-moreexamples
-	font-size: 12px
+.tab-anatomy .buttonbar:hover
+	border-color: red
+
+.tab-anatomy .tab-content
+	width: 860px
+	border: 2px solid transparent
+	padding: 10px
+	position: relative
+
+.tab-anatomy .tab-content:hover
+	border-color: red
+
+pre
+	tab-size: 2
+	font-size: 120%
+	
+.tab-carrot pre
+	margin-left: 40px

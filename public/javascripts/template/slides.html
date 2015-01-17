@@ -42,27 +42,73 @@
 <script class="examples">
 	<h1>Examples</h1>
 	<ul>
-		<li>This slideshow is a series tabbed views, obvs.</li>
-		<li>A nested tabbed view:</li>
-	</ul>
-	<div class="nested-region"></div>
-</script>
-
-<script class="apple">
-<h2>A is for Apple.</h2>
-</script>
-<script class="banana">
-<h2>B is for Banana.</h2>
-</script>
-<script class="carrot">
-<h2>C is for Carrot.</h2>
-</script>
-
-<script class="moreexamples">
-	<h1>More Examples</h1>
-	<ul>
-		<li><a href="http://127.0.0.1:8080/user/edit" target="examples">Edit Panel</a></li>
+		<li><a href="http://127.0.0.1:8080/user/edit" target="examples">about.me Edit Panel</a></li>
 		<li><a href="http://127.0.0.1:8080/me/playground/forms" target="examples">Playground Page</a></li>
 		<li><a href="http://127.0.0.1:8080/about/us" target="examples">About Us</a></li>
 	</ul>
 </script>
+
+<script class="anatomy">
+	<h2>Anatomy of a Tabbed View</h2>
+	<div class="nested-region"></div>
+	<div class="notes">
+		Let's look at the anatomy of a tabbed view.
+	</div>
+</script>
+
+
+<script class="apple">
+<h2>Tabs are a view Behavior</h2>
+<ul>
+	<li>View provides a tab region</li>
+	<li>View can also provide a nav region</li>
+	<li>Nav is a collection view</li>
+	<li>Default nav view is a button bar</li>
+	<li>BYO CSS</li>
+<div class="notes">
+	The view defines a region where the tabs will be shown.
+	The view can also define a nav region for the tab navigation.
+	The nav view can be any collection of composite view.
+	By default, the behavior provides a buttonbar view
+	which can by styled any way you like.
+	The active tab is marked with an active class.
+</div>
+</ul>
+</script>
+<script class="banana">
+<h2>A Tab is a Model</h2>
+<ul>
+	<li>id: "banana"</li>
+	<li>label: "Banana"</li>
+	<li>view: any Backbone.View</li>
+	<li>viewOptions: (optional)</li>
+	<li>visible: true/false</li>
+</ul>
+<div class="notes">
+	Each tab has an id, which is also used for routing, which I'll get into later.
+	Each tab has label which is shown in the navigation for the tabbed view.
+	Each tab has a view which can be any subclass of Backbone.View,
+	and viewOptions which are passed to the View class to create a view instance
+	each time the tab is shown.
+</div>
+</script>
+<script class="carrot">
+<h2>A TabList is a Collection</h2>
+<ul>
+	<li>The View passes an array of tabs<br>to the Tabs behavior</li>
+	<li>The Tabs behavior converts the array into a collection</li>
+</ul>
+<pre>
+tabs: [
+	{ id: 'apple',  label: 'Apple',  view: AppleView  },
+	{ id: 'banana', label: 'Banana', view: BananaView },
+	{ id: 'carrot', label: 'Carrot', view: CarrotView }
+]
+</pre>
+<div class="notes">
+	The list of tabs is just an array of object literals
+	which the view passes in the behavior's options.
+	The behavior converts the array into a collection of tab models.
+</div>
+</script>
+
