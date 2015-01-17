@@ -18,7 +18,7 @@ define(function(require) {
 				scope: '',
 				tabs: [
 					{ id: 'aboutme', label: 'Me', view: AboutMeView },
-					{ id: 'slides', label: 'Slides', view: SlidesView },
+					{ id: 'tabs', label: 'Tabbed Views', view: SlidesView },
 					{ id: 'dont', label: 'Don’ts', view: DontsView },
 				]
 			};
@@ -32,6 +32,19 @@ define(function(require) {
 
 	var main_view = new MainView();
 
-	main_region.show(main_view);
+	// create the app
+	var app = new Marionette.Application();
+
+	// define global regions
+	app.addRegions({
+		region: '.main-region'
+	});
+
+	app.addInitializer(function(options) {
+		app.region.show(main_view);
+	});
+
+	app.start();
+
 
 });

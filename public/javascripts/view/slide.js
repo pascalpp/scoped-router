@@ -11,13 +11,18 @@ define(function(require) {
 		},
 		logNotes: function() {
 			if (! show_notes) return;
+			var notes = this.$('.notes');
+			if (! notes.length) return;
+
+			notes = notes.text().trim().split('\n');
+
 			console.log('');
 			console.log('');
 			console.log('—————————————————————————————————————');
 			console.log(this.$('h1').first().text());
 			console.log('');
-			this.$('.notes p').map(function() {
-				console.log('• ' + this.innerText);
+			_.each(notes, function(note) {
+				console.log(note.trim());
 			});
 		}
 	});

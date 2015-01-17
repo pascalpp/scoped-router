@@ -46,9 +46,6 @@ define(function(require) {
 				console.error(this.get('id'), this.validationError);
 			});
 
-			if (this.get('id') === 'saved') window.footab = this; // DNR
-
-
 		},
 		getView: function() {
 			var View = this.get('view');
@@ -116,7 +113,7 @@ define(function(require) {
 		},
 		setActiveItem: function() {
 			//console.log(this.tabs.options.scope, 'setActiveItem');
-			this.$el.find('.active').removeClass('active');
+			this.$('.active').removeClass('active');
 			var tab = this.tabs.getCurrentTab();
 			if (tab) {
 				var view = this.children.findByModel(tab);

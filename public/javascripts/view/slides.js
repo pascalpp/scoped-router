@@ -1,31 +1,49 @@
 define(function(require) {
 
 	var TabbedView = require('view/tabbed');
-	var Template = require('text!template/slides.html');
-	var SlideView = require('view/slide');
+	var getView = require('lib/get_view_for_slide');
+	var addViews = require('lib/add_view_to_slides');
 
 
-	var getView = function(id) {
-		var View = SlideView.extend({
-			template: _.template($(Template).filter('script.'+id).html())
-		});
-		return View;
-	}
-
-	var slides = [
-		{ id: 'goals', label: 'Goals' },
-		{ id: 'examples', label: 'Examples' },
+	var nested_slides = [
+		{ id: 'apple', label: 'A' },
+		{ id: 'banana', label: 'B'  },
+		{ id: 'carrot', label: 'C'  },
+		{ id: 'moreexamples', label: 'More' },
 	];
 
-	_.each(slides, function(slide) {
-		if (! slide.view) {
-			slide.view = getView(slide.id);
+	addViews(nested_slides);
+
+	var NestedView = TabbedView.extend({
+		tabOptions: {
+			scope: 'tabs/examples',
+			tabs: nested_slides
 		}
 	});
 
+
+	var ExampleView = getView('examples');
+
+	ExampleView = ExampleView.extend({
+		regions: {
+			'nested_region': '.nested-region'
+		},
+		onRender: function() {
+			var nested_view = new NestedView();
+			this.nested_region.show(nested_view);
+		}
+	});
+
+	var slides = [
+		{ id: 'goals', label: 'Goals' },
+		{ id: 'examples', label: 'Examples', view: ExampleView },
+	];
+
+	addViews(slides);
+
 	var SlidesView = TabbedView.extend({
 		tabOptions: {
-			scope: 'slides',
+			scope: 'tabs',
 			tabs: slides
 		}
 	});

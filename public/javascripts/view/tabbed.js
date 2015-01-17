@@ -32,7 +32,7 @@ define(function(require) {
 				}
 				break;
 			default:
-				console.log(e.which);
+				// console.log(e.which);
 		}
 	}
 

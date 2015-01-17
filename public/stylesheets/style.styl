@@ -16,11 +16,12 @@ p
 
 ul li
 	margin-bottom: 0.5em
-	font-size: 36px
+	font-size: 1.8em
 
 
 .buttonbar 
 	display: flex
+	margin-left: 20px
 
 .buttonbar .button 
 	font-family: Helvetica, Sans-Serif
@@ -31,7 +32,7 @@ ul li
 	margin-right: 5px
 	box-sizing: border-box
 	cursor: pointer
-	border-radius: 3px
+	border-radius: 5px
 	border-bottom-left-radius: 0
 	border-bottom-right-radius: 0
 	font-size: 14px
@@ -39,36 +40,44 @@ ul li
 	-webkit-user-select: none
 	user-select: none
 	border: 1px solid rgba(0,0,0,0.1)
-	border-bottom: none;
+	border-bottom: none
 
 .buttonbar .button.active 
 	background-color: #fff
 	cursor: default
 	font-weight: bold
 	font-size: 20px
-	padding: 10px 15px;
-	margin-top: -2px;
-	margin-bottom: -1px;
+	padding: 10px 15px
+	margin-top: -2px
+	margin-bottom: -1px
 	border-color: rgba(0,0,0,0.3)
 
 
 .tab 
 	background-color: #fff
 	padding: 30px
-	min-height: 640px
 	border-radius: 5px
-	border-top-left-radius: 0
 	border: 1px solid rgba(0,0,0,0.3)
+	min-height: 600px
+
+.tab .tab
+	padding-bottom: 100px
+	min-height: 556px
+.tab .tab .tab
+	padding: 30px
+	min-height: 0px
+
+
 
 .tab .notes
-	display: none;
+	display: none
 
 .tab-aboutme
 	align-items: center
 		
 .tab-aboutme img
 	width: 100%
-	max-width: 1200px
+	max-width: 1050px
 	height: auto
 	border: 1px solid rgba(0,0,0,0.3)
 	border-radius: 3px
@@ -81,6 +90,25 @@ ul li
 	align-content: space-between
 	padding: 30px 100px
 
-.tab-slides .slide
-	padding-bottom: 100px
-	
+.tab .tab-examples
+	padding-bottom: 30px
+
+
+.tab-examples .nested-region
+	margin-left: 42px
+
+.tab-examples .tab
+	width: 400px
+	height: 195px
+	background-position: center right
+	background-repeat: no-repeat
+
+.tab-examples .tab-apple
+	background-image: url(/images/apple.png)
+.tab-examples .tab-banana
+	background-image: url(/images/banana.png)
+.tab-examples .tab-carrot
+	background-image: url(/images/carrot.png)
+
+.tab-moreexamples
+	font-size: 12px
