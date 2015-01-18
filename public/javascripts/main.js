@@ -6,6 +6,7 @@ define(function(require) {
 	var DontsView = require('view/donts');
 	var SlideView = require('view/slide');
 	var Tabs = require('lib/behavior.tabs');
+	var getView = require('lib/get_view_for_slide');
 	var Template = require('text!template/slides.html');
 
 	var AboutMeView = SlideView.extend({
@@ -17,8 +18,10 @@ define(function(require) {
 			return {
 				scope: '',
 				tabs: [
-					{ id: 'aboutme', label: 'Me', view: AboutMeView },
+					{ id: 'intro', label: 'Intro', view: getView('intro') },
+					{ id: 'aboutme', label: 'About Me', view: AboutMeView },
 					{ id: 'tabs', label: 'Tabbed Views', view: SlidesView },
+					{ id: 'routing', label: 'Routing', view: SlidesView },
 					{ id: 'dont', label: 'Don’ts', view: DontsView },
 				]
 			};

@@ -3,13 +3,18 @@ body
 	font-size: 20px
 	padding: 20px
 	line-height: 1.3
-	background-color: #ddd
+	background-color: #dde
 	color: #000
+
+a
+	color: #33c
+	text-decoration: none
+	
 
 h1, h2, h3, h4 
 	font-family: Helvetica, Sans-Serif
 	margin: 0
-	margin-bottom: 0.5em
+	margin-bottom: 20px
 
 p
 	max-width: 600px
@@ -58,32 +63,51 @@ ul li
 	padding: 30px
 	border-radius: 5px
 	border: 3px solid rgba(0,0,0,0.2)
-	min-height: 550px
+	min-height: 750px
 
 .tab .tab
+	border-color: rgba(0,0,0,0.2)
+	background-color: #ffe
+	min-height: 640px
+.tab .buttonbar .button
 	border-color: rgba(0,0,0,0.1)
-	min-height: 550px
+.tab .buttonbar .button.active
+	background-color: #ffe
+	border-color: rgba(0,0,0,0.2)
+
 .tab .tab .tab
 	padding: 30px
 	min-height: 0px
 	font-size: 18px
-.tab .buttonbar .button
-	border-color: rgba(0,0,0,0.02)
-.tab .buttonbar .button.active
-	border-color: rgba(0,0,0,0.1)
+
+.tab .tab .tab
+	background-color: #fff
+.tab .tab .buttonbar .button.active
+	background-color: #fff
+
 
 
 
 .tab .notes
 	display: none
 
+.tab-intro
+	text-align: center
+	font-size: 36px
+.tab-intro p
+	max-width: none
+	margin: 10px 0
+	color: #666
+
+
 .tab-aboutme
 	align-items: center
+	padding: 30px !important
 		
 .tab-aboutme img
 	width: 100%
-	max-width: 1050px
 	height: auto
+	max-width: 1150px
 	border: 1px solid rgba(0,0,0,0.3)
 	border-radius: 3px
 
@@ -104,7 +128,7 @@ ul li
 
 .tab-anatomy .tab
 	height: 400px
-	padding-right: 280px !important
+	padding-right: 270px !important
 	background-position: top right
 	background-repeat: no-repeat
 
@@ -137,6 +161,9 @@ ul li
 
 .tab-anatomy .tab-content:hover
 	border-color: red
+
+.code
+	font-family: monospace;
 
 pre
 	tab-size: 2

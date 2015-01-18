@@ -1,5 +1,11 @@
+<script class="intro">
+	<h1>Tabbed Marionette Views<br>and Routing with “Scopes”</h1>
+	<p><a href="http://about.me/pascal">about.me/pascal</a></p>
+	<p>@pascalpp on <a href="http://github.com/pascalpp">GitHub</a> and <a href="http://twitter.com/pascalpp">Twitter</a></p>
+	<div class="notes"></div>
+</script>
+
 <script class="aboutme">
-	<h1>About Me</h1>
 	<img src="/images/aboutme.png">
 	<div class="notes">
 		My name is Pascal.
@@ -58,7 +64,7 @@
 
 
 <script class="apple">
-<h2>Tabs are a view Behavior</h2>
+<h2>Tabs are a Marionette Behavior</h2>
 <ul>
 	<li>View provides a tab region</li>
 	<li>View can also provide a nav region</li>
@@ -66,6 +72,10 @@
 	<li>Default nav view is a button bar</li>
 	<li>BYO CSS</li>
 <div class="notes">
+	By show of hands, who here knows about Marionette Behaviors?
+	If you're not familiar with Marionette Behaviors,
+	they are a way to encapsulate some functionality which
+	can then be added to any view.
 	The view defines a region where the tabs will be shown.
 	The view can also define a nav region for the tab navigation.
 	The nav view can be any collection of composite view.
@@ -77,12 +87,12 @@
 </script>
 <script class="banana">
 <h2>A Tab is a Model</h2>
-<ul>
+<ul class="code">
 	<li>id: "banana"</li>
 	<li>label: "Banana"</li>
 	<li>view: any Backbone.View</li>
 	<li>viewOptions: (optional)</li>
-	<li>visible: true/false</li>
+	<li>visible: true || false</li>
 </ul>
 <div class="notes">
 	Each tab has an id, which is also used for routing, which I'll get into later.
@@ -90,6 +100,7 @@
 	Each tab has a view which can be any subclass of Backbone.View,
 	and viewOptions which are passed to the View class to create a view instance
 	each time the tab is shown.
+	You can also set the tab's visible property to false to hide it from view.
 </div>
 </script>
 <script class="carrot">
