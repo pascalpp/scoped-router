@@ -1,15 +1,16 @@
 define(function(require) {
 
 	var Marionette = require('marionette');
-	var TabbedView = require('view/tabbed');
-	var SlidesView = require('view/slides');
-	var DontsView = require('view/donts');
-	var SlideView = require('view/slide');
 	var Tabs = require('lib/behavior.tabs');
-	var getView = require('lib/get_view_for_slide');
+	var TabbedView = require('view/tabbed');
+	var SlideView = require('view/slide');
+	var TabsSlide = require('slides/tabs');
+	var RoutingSlide = require('slides/routing');
+	var DontsSlide = require('slides/donts');
+	var getSlide = require('lib/get_view_for_slide');
 	var Template = require('text!template/slides.html');
 
-	var AboutMeView = SlideView.extend({
+	var AboutMeSlide = SlideView.extend({
 		template: _.template($(Template).filter('script.aboutme').html())
 	});
 
@@ -18,11 +19,11 @@ define(function(require) {
 			return {
 				scope: '',
 				tabs: [
-					{ id: 'intro', label: 'Intro', view: getView('intro') },
-					{ id: 'aboutme', label: 'About Me', view: AboutMeView },
-					{ id: 'tabs', label: 'Tabbed Views', view: SlidesView },
-					{ id: 'routing', label: 'Routing', view: SlidesView },
-					{ id: 'dont', label: 'Don’ts', view: DontsView },
+					{ id: 'intro', label: 'Intro', view: getSlide('intro') },
+					{ id: 'aboutme', label: 'About Me', view: AboutMeSlide },
+					{ id: 'tabbed-views', label: 'Tabbed Views', view: TabsSlide },
+					{ id: 'routing', label: 'Routing', view: RoutingSlide },
+					{ id: 'donts', label: 'Don’ts', view: DontsSlide },
 				]
 			};
 		}

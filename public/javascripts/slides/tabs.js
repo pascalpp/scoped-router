@@ -1,21 +1,22 @@
 define(function(require) {
 
 	var TabbedView = require('view/tabbed');
+	var Template = require('text!template/slides.html');
 	var getView = require('lib/get_view_for_slide');
 	var addViews = require('lib/add_view_to_slides');
 
 
 	var nested_slides = [
 		{ id: 'apple', label: 'Apple' },
-		{ id: 'banana', label: 'Banana'  },
-		{ id: 'carrot', label: 'Carrot'  },
+		{ id: 'banana', label: 'Banana' },
+		{ id: 'carrot', label: 'Carrot' },
 	];
 
 	addViews(nested_slides);
 
 	var NestedView = TabbedView.extend({
 		tabOptions: {
-			scope: 'tabs/anatomy',
+			scope: 'tabbed-views/anatomy',
 			tabs: nested_slides
 		}
 	});
@@ -33,17 +34,27 @@ define(function(require) {
 		}
 	});
 
+	var CodeSampleView = getView('tabs-code');
+
+	CodeSampleView = CodeSampleView.extend({
+		onRender: function() {
+			var code = $(Template).filter('script.tabs-code-sample').html();
+			this.$('pre').text(code.trim());
+		}
+	});
+
 	var slides = [
 		{ id: 'goals', label: 'Goals' },
 		{ id: 'anatomy', label: 'Anatomy', view: AnatomyView },
 		{ id: 'examples', label: 'Examples' },
+		{ id: 'code', label: 'Code', view: CodeSampleView },
 	];
 
 	addViews(slides);
 
 	var SlidesView = TabbedView.extend({
 		tabOptions: {
-			scope: 'tabs',
+			scope: 'tabbed-views',
 			tabs: slides
 		}
 	});

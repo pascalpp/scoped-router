@@ -45,15 +45,6 @@
 	</div>
 </script>
 
-<script class="examples">
-	<h1>Examples</h1>
-	<ul>
-		<li><a href="http://127.0.0.1:8080/user/edit" target="examples">about.me Edit Panel</a></li>
-		<li><a href="http://127.0.0.1:8080/me/playground/forms" target="examples">Playground Page</a></li>
-		<li><a href="http://127.0.0.1:8080/about/us" target="examples">About Us</a></li>
-	</ul>
-</script>
-
 <script class="anatomy">
 	<h2>Anatomy of a Tabbed View</h2>
 	<div class="nested-region"></div>
@@ -64,62 +55,148 @@
 
 
 <script class="apple">
-<h2>Tabs are a Marionette Behavior</h2>
-<ul>
-	<li>View provides a tab region</li>
-	<li>View can also provide a nav region</li>
-	<li>Nav is a collection view</li>
-	<li>Default nav view is a button bar</li>
-	<li>BYO CSS</li>
-<div class="notes">
-	By show of hands, who here knows about Marionette Behaviors?
-	If you're not familiar with Marionette Behaviors,
-	they are a way to encapsulate some functionality which
-	can then be added to any view.
-	The view defines a region where the tabs will be shown.
-	The view can also define a nav region for the tab navigation.
-	The nav view can be any collection of composite view.
-	By default, the behavior provides a buttonbar view
-	which can by styled any way you like.
-	The active tab is marked with an active class.
-</div>
-</ul>
+	<h2>Tabs are a Marionette Behavior</h2>
+	<ul>
+		<li>View provides a tab region</li>
+		<li>View can also provide a nav region</li>
+		<li>Nav is a collection view</li>
+		<li>Default nav view is a button bar</li>
+		<li>BYO CSS</li>
+	<div class="notes">
+		By show of hands, who here knows about Marionette Behaviors?
+		If you're not familiar with Marionette Behaviors,
+		they are a way to encapsulate some functionality which
+		can then be added to any view.
+		The view defines a region where the tabs will be shown.
+		The view can also define a nav region for the tab navigation.
+		The nav view can be any collection of composite view.
+		By default, the behavior provides a buttonbar view
+		which can by styled any way you like.
+		The active tab is marked with an active class.
+	</div>
+	</ul>
 </script>
 <script class="banana">
-<h2>A Tab is a Model</h2>
-<ul class="code">
-	<li>id: "banana"</li>
-	<li>label: "Banana"</li>
-	<li>view: any Backbone.View</li>
-	<li>viewOptions: (optional)</li>
-	<li>visible: true || false</li>
-</ul>
-<div class="notes">
-	Each tab has an id, which is also used for routing, which I'll get into later.
-	Each tab has label which is shown in the navigation for the tabbed view.
-	Each tab has a view which can be any subclass of Backbone.View,
-	and viewOptions which are passed to the View class to create a view instance
-	each time the tab is shown.
-	You can also set the tab's visible property to false to hide it from view.
-</div>
+	<h2>A Tab is a Model</h2>
+	<ul class="code">
+		<li>id: "banana"</li>
+		<li>label: "Banana"</li>
+		<li>view: any Backbone.View</li>
+		<li>viewOptions: (optional)</li>
+		<li>visible: true || false</li>
+	</ul>
+	<div class="notes">
+		Each tab has an id, which is also used for routing, which I'll get into later.
+		Each tab has label which is shown in the navigation for the tabbed view.
+		Each tab has a view which can be any subclass of Backbone.View,
+		and viewOptions which are passed to the View class to create a view instance
+		each time the tab is shown.
+		You can also set the tab's visible property to false to hide it from view.
+	</div>
 </script>
 <script class="carrot">
-<h2>A TabList is a Collection</h2>
-<ul>
-	<li>The View passes an array of tabs<br>to the Tabs behavior</li>
-	<li>The Tabs behavior converts the array into a collection</li>
-</ul>
-<pre>
-tabs: [
-	{ id: 'apple',  label: 'Apple',  view: AppleView  },
-	{ id: 'banana', label: 'Banana', view: BananaView },
-	{ id: 'carrot', label: 'Carrot', view: CarrotView }
-]
-</pre>
-<div class="notes">
-	The list of tabs is just an array of object literals
-	which the view passes in the behavior's options.
-	The behavior converts the array into a collection of tab models.
-</div>
+	<h2>A TabList is a Collection</h2>
+	<ul>
+		<li>The View passes an array of tabs<br>to the Tabs behavior</li>
+		<li>The Tabs behavior converts the array into a collection</li>
+	</ul>
+	<pre>
+	tabs: [
+		{ id: 'apple',  label: 'Apple',  view: AppleView  },
+		{ id: 'banana', label: 'Banana', view: BananaView },
+		{ id: 'carrot', label: 'Carrot', view: CarrotView }
+	]
+	</pre>
+	<div class="notes">
+		The list of tabs is just an array of object literals
+		which the view passes in the behavior's options.
+		The behavior converts the array into a collection of tab models.
+	</div>
 </script>
+
+
+<script class="examples">
+	<h1>Examples</h1>
+	<ul>
+		<li><a href="http://127.0.0.1:8080/user/edit" target="examples">about.me Edit Panel</a></li>
+		<li><a href="http://127.0.0.1:8080/me/playground/forms" target="examples">Playground Page</a></li>
+		<li><a href="http://127.0.0.1:8080/about/us" target="examples">About Us</a></li>
+	</ul>
+</script>
+
+<script class="tabs-code">
+	<h1>Adding the Tabs behavior to a View</h1>
+	<div class="nested-region"></div>
+	<pre></pre>
+</script>
+
+<script class="tabs-code-sample">
+var Tabs = require('path/to/behavior/tabs');
+
+var TabbedView = Marionette.LayoutView.extend({
+	template: '#mytemplate',
+	regions: {
+		nav: '.nav-region',
+		content: '.content-region'
+	},
+	behaviors: {
+		behaviorClass: Tabs,
+		region: this.content,
+		nav: {
+			region: this.nav
+		},
+		tabs: [
+			{ id: 'apple',  label: 'Apple',  view: AppleView  },
+			{ id: 'banana', label: 'Banana', view: BananaView },
+			{ id: 'carrot', label: 'Carrot', view: CarrotView }
+		],
+	}
+});
+</script>
+
+<script class="caution">
+	<h1>A Word of Caution</h1>
+	<ul>
+		<li>I’m still learning about Backbone Routing.</li>
+		<li>Some monkeypatching required.</li>
+		<li>This solution works for us, so far.</li>
+		<li>It may not work for you.</li>
+	</ul>
+</script>
+
+<script class="backbone">
+	<h1>How Routing Typically Works in Backbone</h1>
+	<ul>
+		<li>Start your app</li>
+		<li>Instantiate your router(s)</li>
+		<li>Start Backbone.history</li>
+		<li>Backbone.history checks the URL and calls the handler for the first matching route it finds</li>
+	</ul>
+</script>
+
+<script class="limitations">
+	<h1>Limitations in Backbone Routing</h1>
+	<ul>
+		<li>Have to know all the possible routes your application should support in advance of starting history.</li>
+		<li>Routes created after history has started won’t be triggered even if the current URL matches them</li>
+		<li>Route handlers must be capable of handling different app states</li>
+		<li>Routes are eternal. There’s no prescribed way to remove a route from Backbone.history.</li>
+		<li>No way for a URL to trigger more than one route handler.</li>
+	</ul>
+	<div class="notes">
+		You can't define new routes after history has started. This means you have to know in advance all the routes that your application will support. This makes it harder to decentralize route handlers.
+		Route handlers have to be able to handle all your different app states. If a route is fired when it's no longer valid, it has to know not to do anything.
+		Routes persist through the life of your application. Suppose the current user logs out. If your app has routes to views that are only visible to logged-in users, why not just remove those routes?
+		When the URL changes, there might be several routes that match that new URL, but only the most recently one will be triggered.
+	</div>
+</script>
+
+<script class="dont1">
+	<h1>Don’t</h1>
+</script>
+
+<script class="dont2">
+	<h1>Don’t</h1>
+</script>
+
 

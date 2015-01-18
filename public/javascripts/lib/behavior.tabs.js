@@ -193,6 +193,7 @@ define(function(require) {
 			// validate options
 			_.defaults(this.options, {
 				tabs: [],
+				routing: true,
 				show_initial_tab: true,
 				initial_tab_id: '',
 				wraparound: false
@@ -214,15 +215,8 @@ define(function(require) {
 				if (initial_tab_id) this.options.initial_tab_id = initial_tab_id;
 			}
 
-			if (! _.isUndefined(this.options.scope)) {
-				this.router = new Router({
-					controller: this,
-					scope: this.options.scope,
-					appRoutes: {
-						'(:tab_id)(/)(*params)': 'routeTabId'
-					}
-				});
-			}
+			_.bindAll(this, 'initializeRouter');
+			_.delay(this.initializeRouter, 0); // 10000 for demo
 
 			// set up view model and tablist
 			this.model = new Backbone.Model({ current_tab_id: this.options.initial_tab_id });
@@ -232,6 +226,18 @@ define(function(require) {
 			this.autoShowFirstTab = _.debounce(this.autoShowFirstTab, 20);
 
 			window.footabs = this; // DNR
+		},
+
+		initializeRouter: function() {
+			if (this.options.routing) {
+				this.router = new Router({
+					controller: this,
+					scope: this.options.scope,
+					appRoutes: {
+						'(:tab_id)(/)(*params)': 'routeTabId'
+					}
+				});
+			}
 		},
 
 		onShow: function() {
@@ -380,9 +386,11 @@ define(function(require) {
 			});
 			if (! this.options.nav.region) throw new Error('Tab nav requires a region');
 
-			this.nav = new this.options.nav.view(_.extend(this.options.nav.viewOptions, {
+			var navViewOptions = _.extend(this.options.nav.viewOptions, {
 				tabs: this,
-			}));
+			});
+
+			this.nav = new this.options.nav.view(navViewOptions);
 
 			this.options.nav.region.show(this.nav);
 
