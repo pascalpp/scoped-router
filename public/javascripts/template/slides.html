@@ -1,5 +1,5 @@
 <script class="intro">
-	<h1>Tabbed Marionette Views<br>and Routing with “Scopes”</h1>
+	<h1>Tabbed Marionette Views <br>and Routing with “Scopes”</h1>
 	<p><a href="http://about.me/pascal">about.me/pascal</a></p>
 	<p>@pascalpp on <a href="http://github.com/pascalpp">GitHub</a> and <a href="http://twitter.com/pascalpp">Twitter</a></p>
 	<div class="notes"></div>
@@ -171,11 +171,14 @@ var TabbedView = Marionette.LayoutView.extend({
 
 <script class="scopes">
 	<h2>Each level in the view hierarchy is a “scope”</h2>
-	<p class="code">http://host.com/routing/needs/scopes</p>
-	<ul>
-		<li>Top level scope is '', param is 'routing'</li>
-		<li>Next level scope is 'routing', param is 'needs'</li>
-		<li>Third level scope is 'routing/needs',  param is 'scopes'</li>
+	<p class="code url highlight scope0">http://host.com/routing/needs/scopes</p>
+	<p class="code url highlight scope1">http://host.com:<span class="param">routing</span><span class="ignored">/needs/scopes</span></p>
+	<p class="code url highlight scope2">http://host.com/<span class="scope">routing</span>:<span class="param">needs</span><span class="ignored">/scopes</span></p>
+	<p class="code url highlight scope3">http://host.com/<span class="scope">routing/needs</span>:<span class="param">scopes</span></p>
+	<ul class="code">
+		<li>1st level: scope: <span class="scope">""</span>, param: <span class="param">routing</span></li>
+		<li>2nd level: scope: <span class="scope">routing</span>, param: <span class="param">needs</span></li>
+		<li>3rd level: scope: <span class="scope">routing/needs</span>, param: <span class="param">scopes</span></li>
 	</ul>
 </script>
 <script class="router">

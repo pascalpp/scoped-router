@@ -10,6 +10,7 @@ copy({
   files: {
     'backbone.js': 'node_modules/backbone/backbone.js',
     'backbone.marionette.js': 'node_modules/backbone.marionette/lib/backbone.marionette.js',
+    'backbone.radio.js': 'node_modules/backbone.radio/build/backbone.radio.js',
     'jquery.js': 'node_modules/jquery/dist/jquery.js',
     'underscore.js': 'node_modules/underscore/underscore.js',
     'require.js': 'node_modules/requirejs/require.js',

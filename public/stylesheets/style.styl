@@ -181,14 +181,68 @@ pre
 .tab-tabbed-views .tab-code pre
 	font-size: 100%
 	
-.tab-scopes .code
-	font-size: 40px
+
+.tab-scopes li
+	cursor: pointer
+	margin: 0
+	padding: 20px 0
+
+.tab-scopes .url
+	font-size: 36px
 	line-height: 36px
+	white-space: nowrap
+	display: none
 	
-	.scope1 .scope1
+.tab-scopes .highlight
+	.scope
+		position: relative;
 		background-color: rgba(255,204,204,0.5)
 		box-shadow: 0 0 0 2px rgba(255,0,0,0.5)
-	.scope1 .scope1-param
+	.param
+		position: relative;
 		background-color: rgba(204,204,255,0.5)
 		box-shadow: 0 0 0 2px rgba(0,0,255,0.5)
+
+.tab-scopes .url
+	.scope:before
+		content: 'scope'
+		position: absolute
+		top: -36px
+		left: 2px
+		font-size: 22px
+	.param:before
+		content: 'parameter'
+		position: absolute
+		top: -36px
+		left: 2px
+		font-size: 22px
+	.ignored
+		opacity: 0.1
+
+.tab-scopes .url.scope0
+	display: block
+.scope-1
+	.tab-scopes .url.scope0
+		display: none
+	.tab-scopes .url.scope1
+		display: block
+.scope-2
+	.tab-scopes .url.scope0
+		display: none
+	.tab-scopes .url.scope2
+		display: block
+.scope-3
+	.tab-scopes .url.scope0
+		display: none
+	.tab-scopes .url.scope3
+		display: block
+
+.tabbed.scope-1
+	box-shadow: 0 0 0px 5px rgba(255,0,0,0.5)
+
+.tabbed.scope-2 .tabbed.tab-routing
+	box-shadow: inset 0 0 0px 5px rgba(255,0,0,0.5)
+
+.tabbed.scope-3 .tab-needs .tabbed
+	box-shadow: 0 0 0px 5px rgba(255,0,0,0.5)
 

@@ -40,6 +40,7 @@ define(function(require) {
 
 
 	var TabbedView = Marionette.LayoutView.extend({
+		className: 'tabbed',
 		template: _.template('<div class="tab-nav"></div><div class="tab-content"></div>'),
 		regions: {
 			nav: '.tab-nav',

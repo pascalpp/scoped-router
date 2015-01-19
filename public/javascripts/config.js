@@ -4,6 +4,7 @@ requirejs.config({
     'jquery': 'vendor/jquery',
     'backbone': 'vendor/backbone',
     'marionette': 'vendor/backbone.marionette',
+    'backbone.radio': 'vendor/backbone.radio',
     'underscore': 'vendor/underscore',
     'text': 'vendor/text'
   },
