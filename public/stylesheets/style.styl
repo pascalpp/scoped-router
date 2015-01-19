@@ -63,12 +63,11 @@ ul li
 	padding: 30px
 	border-radius: 5px
 	border: 3px solid rgba(0,0,0,0.2)
-	min-height: 750px
 
 .tab .tab
 	border-color: rgba(0,0,0,0.2)
 	background-color: #ffe
-	min-height: 640px
+	min-height: 500px
 .tab .buttonbar .button
 	border-color: rgba(0,0,0,0.1)
 .tab .buttonbar .button.active
@@ -82,6 +81,7 @@ ul li
 
 .tab .tab .tab
 	background-color: #fff
+	min-height: 400px
 .tab .tab .buttonbar .button.active
 	background-color: #fff
 
@@ -94,6 +94,7 @@ ul li
 .tab-intro
 	text-align: center
 	font-size: 36px
+	height: 600px
 .tab-intro p
 	max-width: none
 	margin: 10px 0
@@ -107,7 +108,7 @@ ul li
 .tab-aboutme img
 	width: 100%
 	height: auto
-	max-width: 1150px
+	max-width: 1000px
 	border: 1px solid rgba(0,0,0,0.3)
 	border-radius: 3px
 
@@ -115,15 +116,18 @@ ul li
 .slide
 	display: flex
 	flex-direction: column
-	justify-content: center
+	justify-content: start
 	align-content: space-between
-	padding: 30px 100px
+	padding: 35px 50px 50px
+
+.tab-intro
+	justify-content: center
 
 .tab-anatomy
 	padding-bottom: 30px
 
 .tab-anatomy .nested-region
-	margin-left: -25px
+	margin-left: -15px
 	margin-top: -50px
 
 .tab-anatomy .tab
@@ -144,7 +148,7 @@ ul li
 	border: 2px solid transparent
 	padding: 10px
 	margin: 0
-	margin-left: 450px
+	margin-left: 560px
 	margin-bottom: -24px
 	width: 270px
 	position: relative
@@ -176,3 +180,15 @@ pre
 	
 .tab-tabbed-views .tab-code pre
 	font-size: 100%
+	
+.tab-scopes .code
+	font-size: 40px
+	line-height: 36px
+	
+	.scope1 .scope1
+		background-color: rgba(255,204,204,0.5)
+		box-shadow: 0 0 0 2px rgba(255,0,0,0.5)
+	.scope1 .scope1-param
+		background-color: rgba(204,204,255,0.5)
+		box-shadow: 0 0 0 2px rgba(0,0,255,0.5)
+

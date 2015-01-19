@@ -46,7 +46,7 @@
 </script>
 
 <script class="anatomy">
-	<h2>Anatomy of a Tabbed View</h2>
+	<h1>Anatomy of a Tabbed View</h1>
 	<div class="nested-region"></div>
 	<div class="notes">
 		Let's look at the anatomy of a tabbed view.
@@ -164,6 +164,28 @@ var TabbedView = Marionette.LayoutView.extend({
 	</ul>
 </script>
 
+<script class="needs">
+	<h1>What we need in order to route to any tab view</h1>
+	<div class="nested-region"></div>
+</script>
+
+<script class="scopes">
+	<h2>Each level in the view hierarchy is a “scope”</h2>
+	<p class="code">http://host.com/routing/needs/scopes</p>
+	<ul>
+		<li>Top level scope is '', param is 'routing'</li>
+		<li>Next level scope is 'routing', param is 'needs'</li>
+		<li>Third level scope is 'routing/needs',  param is 'scopes'</li>
+	</ul>
+</script>
+<script class="router">
+	<h2>Each tabbed view creates its own router</h2>
+</script>
+<script class="destroy">
+	<h2>When the view closes, its router is destroyed</h2>
+	<p>And its routes are removed</p>
+</script>
+
 <script class="backbone">
 	<h1>How Routing Typically Works in Backbone</h1>
 	<ul>
@@ -177,15 +199,14 @@ var TabbedView = Marionette.LayoutView.extend({
 <script class="limitations">
 	<h1>Limitations in Backbone Routing</h1>
 	<ul>
-		<li>Have to know all the possible routes your application should support in advance of starting history.</li>
-		<li>Routes created after history has started won’t be triggered even if the current URL matches them</li>
-		<li>Route handlers must be capable of handling different app states</li>
-		<li>Routes are eternal. There’s no prescribed way to remove a route from Backbone.history.</li>
+		<li>Routes created after history has started won’t be triggered even if they match the current URL.</li>
+		<li>Route handlers must be capable of handling different app states.</li>
+		<li>There’s no prescribed way to remove a route from Backbone.history.</li>
 		<li>No way for a URL to trigger more than one route handler.</li>
 	</ul>
 	<div class="notes">
-		You can't define new routes after history has started. This means you have to know in advance all the routes that your application will support. This makes it harder to decentralize route handlers.
-		Route handlers have to be able to handle all your different app states. If a route is fired when it's no longer valid, it has to know not to do anything.
+		You can define new routes after history has started, but they won't be triggered until the next time the URL changes. This generally means you have to know in advance all the routes that your application will support. This makes it harder to decentralize route handlers.
+		Route handlers have to be able to handle all your different app states. If a route is triggered when it's no longer valid, it has to know not to do anything.
 		Routes persist through the life of your application. Suppose the current user logs out. If your app has routes to views that are only visible to logged-in users, why not just remove those routes?
 		When the URL changes, there might be several routes that match that new URL, but only the most recently one will be triggered.
 	</div>

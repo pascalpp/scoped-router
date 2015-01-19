@@ -7,7 +7,35 @@ define(function(require) {
 	var addViews = require('lib/add_view_to_slides');
 
 
+	var nested_slides = [
+		{ id: 'scopes', label: 'Scopes' },
+		{ id: 'router', label: 'Router' },
+		{ id: 'destroy', label: 'Destroyable' },
+	];
+
+	addViews(nested_slides);
+
+	var NestedView = TabbedView.extend({
+		tabOptions: {
+			scope: 'routing/needs',
+			tabs: nested_slides
+		}
+	});
+
+
+	var NeedView = getView('needs');
+
+	NeedView = NeedView.extend({
+		regions: {
+			'nested_region': '.nested-region'
+		},
+		onRender: function() {
+			var nested_view = new NestedView();
+			this.nested_region.show(nested_view);
+		}
+	});
 	var slides = [
+		{ id: 'needs', label: 'What We Need', view: NeedView },
 		{ id: 'backbone', label: 'Backbone Routing' },
 		{ id: 'limitations', label: 'Limitations' },
 		{ id: 'caution', label: 'Caution' },
