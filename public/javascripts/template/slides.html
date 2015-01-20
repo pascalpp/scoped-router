@@ -134,7 +134,7 @@
 				Define or import a View class for each tab.
 			</div>
 			<div class="note note-tabbedview">
-				Define a View class to contain your tabs.
+				Define a View class to contain your tabs. Once initialized, the tabs object will be available in the view as <code>this.tabs</code>, and the collection of tab models at <code>this.tabs.collection</code>.
 			</div>
 			<div class="note note-regions">
 				Your view must define a region for the tab views, and optionally a region for the tab navigation. You can use whatever classnames or region names you prefer.
@@ -146,7 +146,7 @@
 				Here you pass the tab region you defined above. All tab views will be shown in this region.
 			</div>
 			<div class="note note-navoptions">
-				Here you pass the options for the tab navigation, including the region where tab navigation should be shown. You can also pass `view` and `viewOptions` here to create your own custom tab navigation. Omit the nav options or set nav to false to forgo tab navigation.
+				Here you pass the options for the tab navigation, including the region where tab navigation should be shown. You can also pass <code>view</code> and <code>viewOptions</code> here to create your own custom tab navigation. Omit the nav options or set nav to false to forgo tab navigation. The nav view will receive a reference to the tabs object in its options.
 			</div>
 			<div class="note note-tabslist">
 				Pass an array of objects describing your tabs.
@@ -184,14 +184,46 @@ var CarrotView = require('view/carrot_view');
 </div>});
 </script>
 
-<script class="caution">
-	<h1>A Word of Caution</h1>
+<script class="backbone">
+	<h1>How Routing Typically Works in Backbone</h1>
+	<div class="nested-region"></div>
+</script>
+
+<script class="appstart">
+	<h2>App Initialization</h2>
 	<ul>
-		<li>I’m still learning about Backbone Routing.</li>
-		<li>Some monkeypatching required.</li>
-		<li>This solution works for us, so far.</li>
-		<li>It may not work for you.</li>
+		<li>Start your app</li>
+		<li>Instantiate your router(s)</li>
+		<li>Router(s) add routes to Backbone.history.handlers array</li>
+		<li>Start Backbone.history</li>
+		<li>Backbone.history finds the most recently added route which matches the current URL and calls its handler</li>
 	</ul>
+</script>
+<script class="apprunning">
+	<h2>While Your App Is Running</h2>
+	<ul>
+		<li>User navigates around your app</li>
+		<li>App updates the URL to reflect the current app state</li>
+		<li>User clicks back button</li>
+		<li>URL changes, triggering a history event</li>
+		<li>Backbone.history finds the most recently added route which matches the current URL and calls its handler</li>
+	</ul>
+</script>
+
+<script class="limitations">
+	<h2>Limitations in Backbone Routing</h2>
+	<ul>
+		<li>Routes created after history has started won’t be triggered even if they match the current URL.</li>
+		<li>Route handlers must be capable of handling different app states.</li>
+		<li>There’s no prescribed way to remove a route from Backbone.history.</li>
+		<li>No way for a URL to trigger more than one route handler.</li>
+	</ul>
+	<div class="notes">
+		You can define new routes after history has started, but they won't be triggered until the next time the URL changes. This generally means you have to know in advance all the routes that your application will support. This makes it harder to decentralize route handlers.
+		Route handlers have to be able to handle all your different app states. If a route is triggered when it's no longer valid, it has to know not to do anything.
+		Routes persist through the life of your application. Suppose the current user logs out. If your app has routes to views that are only visible to logged-in users, why not just remove those routes?
+		When the URL changes, there might be several routes that match that new URL, but only the most recently one will be triggered.
+	</div>
 </script>
 
 <script class="needs">
@@ -214,8 +246,8 @@ var CarrotView = require('view/carrot_view');
 	<ul>
 		<li>Break the URL into parts, called “scopes”</li>
 		<li>Create a router that operates within a given scope</li>
-		<li>If history has already started, the router calls its own route handlers if they match the current URL</li>
-		<li>Let each tabbed view create its own scoped router</li>
+		<li>If history has already started, a new router will check its own routes to see if they match the current URL</li>
+		<li>Each tabbed view creates its own scoped router</li>
 		<li>When a tabbed view is closed, destroy its router and its routes</li>
 	</ul>
 </script>
@@ -284,47 +316,17 @@ var Controller = Marionette.Controller.extend({
 	<p>And its routes are removed</p>
 </script>
 
-<script class="backbone">
-	<h1>How Routing Typically Works in Backbone</h1>
-	<div class="nested-region"></div>
-</script>
 
-<script class="appstart">
-	<h2>App Initialization</h2>
+<script class="caution">
+	<h1>A Word of Caution</h1>
 	<ul>
-		<li>Start your app</li>
-		<li>Instantiate your router(s)</li>
-		<li>Router(s) add routes to Backbone.history.handlers array</li>
-		<li>Start Backbone.history</li>
-		<li>Backbone.history finds the most recently added route which matches the current URL and calls its handler</li>
-	</ul>
-</script>
-<script class="apprunning">
-	<h2>While Your App Is Running</h2>
-	<ul>
-		<li>User navigates around your app</li>
-		<li>App updates the URL to reflect the current app state</li>
-		<li>User clicks back button</li>
-		<li>URL changes, triggering a history event</li>
-		<li>Backbone.history finds the most recently added route which matches the current URL and calls its handler</li>
+		<li>This solution is not a drop-in, yet.</li>
+		<li>This solution requires some monkeypatching.</li>
+		<li>This solution works for us, so far.</li>
+		<li>It may not work for you.</li>
 	</ul>
 </script>
 
-<script class="limitations">
-	<h2>Limitations in Backbone Routing</h2>
-	<ul>
-		<li>Routes created after history has started won’t be triggered even if they match the current URL.</li>
-		<li>Route handlers must be capable of handling different app states.</li>
-		<li>There’s no prescribed way to remove a route from Backbone.history.</li>
-		<li>No way for a URL to trigger more than one route handler.</li>
-	</ul>
-	<div class="notes">
-		You can define new routes after history has started, but they won't be triggered until the next time the URL changes. This generally means you have to know in advance all the routes that your application will support. This makes it harder to decentralize route handlers.
-		Route handlers have to be able to handle all your different app states. If a route is triggered when it's no longer valid, it has to know not to do anything.
-		Routes persist through the life of your application. Suppose the current user logs out. If your app has routes to views that are only visible to logged-in users, why not just remove those routes?
-		When the URL changes, there might be several routes that match that new URL, but only the most recently one will be triggered.
-	</div>
-</script>
 
 <script class="dont1">
 	<h1>Don’t</h1>

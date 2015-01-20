@@ -95,7 +95,6 @@ define(function(require) {
 		initialize: function(options) {
 			if (! options.tabs) throw new Error('Tabnav requires tabs.');
 			this.tabs = options.tabs;
-			this.collection = options.tabs.collection;
 			this.listenTo(this.tabs.model, 'change:current_tab_id', this.setActiveItem);
 			this.listenTo(this, 'render', this.setActiveItem);
 			// experimental support for tab.visible property
@@ -388,6 +387,7 @@ define(function(require) {
 
 			var navViewOptions = _.extend(this.options.nav.viewOptions, {
 				tabs: this,
+				collection: this.collection
 			});
 
 			this.nav = new this.options.nav.view(navViewOptions);
