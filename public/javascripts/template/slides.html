@@ -128,32 +128,60 @@
 
 <script class="tabs-code">
 	<h1>Adding the Tabs behavior to a View</h1>
-	<div class="nested-region"></div>
+	<div class="sidenotes">
+		<div class="content">
+			<div class="note note-defineviews">
+				Define or import a View class for each tab.
+			</div>
+			<div class="note note-tabbedview">
+				Define a View class to contain your tabs.
+			</div>
+			<div class="note note-regions">
+				Your view must define a region for the tab views, and optionally a region for the tab navigation. You can use whatever classnames or region names you prefer.
+			</div>
+			<div class="note note-behaviors">
+				Options to be passed to the tabs behavior.
+			</div>
+			<div class="note note-tabregion">
+				Here you pass the tab region you defined above. All tab views will be shown in this region.
+			</div>
+			<div class="note note-navoptions">
+				Here you pass the options for the tab navigation, including the region where tab navigation should be shown. You can also pass `view` and `viewOptions` here to create your own custom tab navigation. Omit the nav options or set nav to false to forgo tab navigation.
+			</div>
+			<div class="note note-tabslist">
+				Pass an array of objects describing your tabs.
+			</div>
+		</div>
+	</div>
 	<pre></pre>
 </script>
 
 <script class="tabs-code-sample">
 var Tabs = require('path/to/behavior/tabs');
 
-var MyTabbedView = Marionette.LayoutView.extend({
+<div class="note note-defineviews" data-note="defineviews">var AppleView = require('view/apple_view');
+var BananaView = require('view/banana_view');
+var CarrotView = require('view/carrot_view');
+</div>
+<span class="note note-tabbedview" data-note="tabbedview">var MyTabbedView = Marionette.LayoutView.extend({</span>
 	template: '#mytemplate',
-	regions: {
-		nav: '.nav-region',
-		content: '.content-region'
+<div class="note note-regions" data-note="regions">	regions: {
+		content: '.content-region',
+		nav: '.nav-region'
 	},
-	behaviors: {
-		behaviorClass: Tabs,
-		region: this.content,
-		nav: {
-			region: this.nav
-		},
-		tabs: [
-			{ id: 'apple',  label: 'Apple',  view: AppleView  },
-			{ id: 'banana', label: 'Banana', view: BananaView },
-			{ id: 'carrot', label: 'Carrot', view: CarrotView }
-		],
+</div><div class="note note-behaviors" data-note="behaviors">	behaviors: function() {
+		return {
+			behaviorClass: Tabs,
+<div class="note" data-note="tabregion">			region: this.content,</div><div class="note" data-note="navoptions">			nav: {
+				region: this.nav
+			},</div><div class="note" data-note="tabslist">			tabs: [
+				{ id: 'apple',  label: 'Apple',  view: AppleView  },
+				{ id: 'banana', label: 'Banana', view: BananaView },
+				{ id: 'carrot', label: 'Carrot', view: CarrotView }
+			]
+</div>		};
 	}
-});
+</div>});
 </script>
 
 <script class="caution">
@@ -186,6 +214,7 @@ var MyTabbedView = Marionette.LayoutView.extend({
 	<ul>
 		<li>Break the URL into parts, called “scopes”</li>
 		<li>Create a router that operates within a given scope</li>
+		<li>If history has already started, the router calls its own route handlers if they match the current URL</li>
 		<li>Let each tabbed view create its own scoped router</li>
 		<li>When a tabbed view is closed, destroy its router and its routes</li>
 	</ul>
@@ -205,8 +234,8 @@ var MyTabbedView = Marionette.LayoutView.extend({
 </script>
 <script class="router">
 	<h2>A Scoped Router</h2>
-	<div class="content">
-		<div class="sidenotes">
+	<div class="sidenotes">
+		<div class="content">
 			<div class="note note-scoperouter">
 				ScopeRouter is a subclass of Marionette.AppRouter.
 			</div>
@@ -217,7 +246,7 @@ var MyTabbedView = Marionette.LayoutView.extend({
 				Defines a route for 'some/scope/foo'. All routes are automatically prefixed with the router's scope.
 			</div>
 			<div class="note note-bar">
-				Defines a route for 'some/scope/bar', with optional parameters slurped into a splat. This allows this route to fire on any URL that starts with 'some/scope/bar'. The handler for this route will receive the additional parameters as an argument.
+				Defines a route for 'some/scope/bar', including an optional params splat. This allows this route to match any URL that starts with 'some/scope/bar'. The handler for this route will receive the additional parameters as an argument.
 			</div>
 			<div class="note note-handlers">
 				Handlers for the above routes.

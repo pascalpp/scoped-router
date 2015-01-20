@@ -47,10 +47,13 @@ define(function(require) {
 
 	var RouterView = getView('router').extend({
 		onRender: function() {
+			this.$el.addClass('code-annotations');
 			var code = $(Template).filter('script.router-code-sample').html();
 			this.$('pre').html(code.trim());
+			this.bindUIElements();
 		},
 		ui: {
+			codenotes: 'pre .note',
 			sidenotes: '.sidenotes .note'
 		},
 		events: {
@@ -58,12 +61,14 @@ define(function(require) {
 			'mouseout pre .note': 'hideNotes'
 		},
 		showNote: function(e) {
-			this.ui.sidenotes.hide();
-			var note = $(e.target).data('note');
+			e.stopPropagation();
+			this.hideNotes();
+			var note = $(e.target).addClass('active').data('note');
 			if (! note) return;
 			this.ui.sidenotes.filter('.note-'+note).show();
 		},
 		hideNotes: function() {
+			this.ui.codenotes.removeClass('active');
 			this.ui.sidenotes.hide();
 		}
 	});

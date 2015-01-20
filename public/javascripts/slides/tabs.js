@@ -39,8 +39,29 @@ define(function(require) {
 
 	var CodeSampleView = getView('tabs-code').extend({
 		onRender: function() {
+			this.$el.addClass('code-annotations');
 			var code = $(Template).filter('script.tabs-code-sample').html();
-			this.$('pre').text(code.trim());
+			this.$('pre').html(code.trim());
+			this.bindUIElements();
+		},
+		ui: {
+			codenotes: 'pre .note',
+			sidenotes: '.sidenotes .note'
+		},
+		events: {
+			'mouseover pre .note': 'showNote',
+			'mouseout pre .note': 'hideNotes'
+		},
+		showNote: function(e) {
+			e.stopPropagation();
+			this.hideNotes();
+			var note = $(e.target).addClass('active').data('note');
+			if (! note) return;
+			this.ui.sidenotes.filter('.note-'+note).show();
+		},
+		hideNotes: function() {
+			this.ui.codenotes.removeClass('active');
+			this.ui.sidenotes.hide();
 		}
 	});
 

@@ -118,7 +118,7 @@ ul li
 .tab-aboutme img
 	width: 100%
 	height: auto
-	max-width: 1000px
+	max-width: 1100px
 	border: 1px solid rgba(0,0,0,0.3)
 	border-radius: 3px
 
@@ -155,26 +155,24 @@ ul li
 	background-image: url(/images/carrot.png)
 	
 .tab-anatomy .buttonbar
-	border: 2px solid transparent
 	padding: 10px
 	margin: 0
 	margin-left: 560px
-	margin-bottom: -24px
+	margin-bottom: -20px
 	width: 270px
 	position: relative
 	z-index: 1
 
 .tab-anatomy .buttonbar:hover
-	border-color: red
+	box-shadow: 0 0 0 4px red;
 
 .tab-anatomy .tab-content
 	width: 860px
-	border: 2px solid transparent
 	padding: 10px
 	position: relative
 
 .tab-anatomy .tab-content:hover
-	border-color: red
+	box-shadow: 0 0 0 4px red;
 
 .code
 	font-family: Andale Mono, monospace
@@ -264,20 +262,40 @@ pre
 	margin: -10px
 	box-shadow: 0 0 0px 10px rgba(255,0,0,0.5)
 
-.tab-router
-	
-	.content
-		position: relative
+.tab-code pre
+	background-color: #fff
+	padding: 20px
+	margin: -20px
+	margin-top: -10px
+	border: 1px solid #eee
+
+
+.code-annotations
 	
 	pre .note
-		box-shadow: 0 0 0 2px #fee
-		cursor: none
-	pre .note:hover
+		box-shadow: inset 0 0 0 2px rgba(255,0,0,0.05)
+		cursor: crosshair
+	pre .note.active
 		background-color: #fee
+	pre .note .note
+		box-shadow: none
+	pre .note:hover .note
+		box-shadow: inset 0 0 0 2px rgba(255,0,0,0.05)
+
+
+	pre .note-defineviews
+		width: 570px
+	pre .note-regions
+		width: 500px
+	pre .note-behaviors
+		width: 840px
 	pre .note-handlers
 		width: 520px
 
 	.sidenotes
+		position: relative
+
+	.sidenotes .content
 		position: absolute
 		left: 700px
 		top: 0px
@@ -290,6 +308,7 @@ pre
 			left: 0
 			right: 0
 			padding: 10px
+			padding-left: 15px
 			border: 2px solid #fcc
 			border-radius: 5px
 		.note:before
@@ -301,26 +320,52 @@ pre
 			width: 50px
 			border: 1px solid #fcc
 			
+		.note-defineviews
+			top: 70px
+		.note-defineviews:before
+			width: 130px
+		.note-tabbedview
+			top: 157px
+		.note-tabbedview:before
+			width: 112px
+		.note-regions
+			top: 190px
+		.note-regions:before
+			top: 50px
+			width: 200px
+		.note-behaviors
+			top: 320px
+			left: 190px
+		.note-tabregion
+			top: 390px
+			left: 190px
+		.note-navoptions
+			top: 420px
+			left: 190px
+		.note-tabslist
+			top: 520px
+			left: 190px
+			
 		.note-scoperouter
 			top: 12px
 		.note-scope
-			top: 140px
+			top: 170px
 			left: -120px
 		.note-scope:before
-			top: 60px
+			top: 30px
 			width: 163px
 		.note-foo
-			top: 196px
+			top: 226px
 			left: -120px
 		.note-foo:before
-			top: 60px
+			top: 30px
 			width: 176px
 		.note-bar
-			top: 165px
+			top: 255px
 			left: -120px
 		.note-bar:before
 			width: 36px
-			top: 120px
+			top: 30px
 		.note-handlers
 			top: 400px
 			left: -120px
