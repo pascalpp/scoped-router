@@ -20,7 +20,9 @@ define(function(require) {
 
 	var MainView = TabbedView.extend({
 		initialize: function() {
+			TabbedView.prototype.initialize.apply(this, arguments);
 			main_channel.comply('show:scope', this.showScope, this);
+			main_channel.comply('toggle:tab', this.toggleTab, this);
 		},
 		showScope: function(which) {
 			if (which) {
@@ -28,6 +30,12 @@ define(function(require) {
 			} else {
 				this.$el.removePrefixedClass('scope');
 			}
+		},
+		toggleTab: function(id) {
+			var tab = this.tabs.collection.findWhere({'id': id})
+			if (! tab) return;
+			var visible = tab.get('visible');
+			tab.set('visible', ! visible);
 		},
 		tabOptions: function() {
 			return {
@@ -37,7 +45,6 @@ define(function(require) {
 					{ id: 'aboutme', label: 'About Me', view: AboutMeSlide },
 					{ id: 'tabbed-views', label: 'Tabbed Views', view: TabsSlide },
 					{ id: 'routing', label: 'Routing', view: RoutingSlide },
-					{ id: 'donts', label: 'Don’ts', view: DontsSlide },
 				]
 			};
 		}

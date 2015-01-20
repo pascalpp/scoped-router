@@ -9,8 +9,25 @@ define(function(require) {
 
 	var main_channel = Backbone.Radio.channel('main');
 
-	var ScopesView = getView('scopes');
-	ScopesView = ScopesView.extend({
+	var backbone_slides = [
+		{ id: 'appstart', label: 'App Initialization' },
+		{ id: 'apprunning', label: 'While Your App Is Running' },
+		{ id: 'limitations', label: 'Limitations' },
+	];
+
+	addViews(backbone_slides);
+
+	var BackboneNestedView = TabbedView.extend({
+		tabOptions: {
+			scope: 'routing/backbone',
+			tabs: backbone_slides
+		}
+	});
+
+	var BackboneView = getNestedView('backbone', BackboneNestedView);
+
+
+	var ScopesView = getView('scopes').extend({
 		events: {
 			'mouseover li span': 'showScope',
 			'mouseover li': 'showScope',
@@ -28,29 +45,52 @@ define(function(require) {
 		}
 	});
 
-	var needed_slides = [
-		{ id: 'scopes', label: 'Scopes', view: ScopesView },
-		{ id: 'router', label: 'Router' },
-		{ id: 'destroy', label: 'Destroyable' },
-	];
-
-	addViews(needed_slides);
-
-	var NestedView = TabbedView.extend({
-		tabOptions: {
-			scope: 'routing/needs',
-			tabs: needed_slides
+	var RouterView = getView('router').extend({
+		onRender: function() {
+			var code = $(Template).filter('script.router-code-sample').html();
+			this.$('pre').html(code.trim());
+		},
+		ui: {
+			sidenotes: '.sidenotes .note'
+		},
+		events: {
+			'mouseover pre .note': 'showNote',
+			'mouseout pre .note': 'hideNotes'
+		},
+		showNote: function(e) {
+			this.ui.sidenotes.hide();
+			var note = $(e.target).data('note');
+			if (! note) return;
+			this.ui.sidenotes.filter('.note-'+note).show();
+		},
+		hideNotes: function() {
+			this.ui.sidenotes.hide();
 		}
 	});
 
+	var solution_slides = [
+		{ id: 'overview', label: 'Overview' },
+		{ id: 'scopes', label: 'Scopes', view: ScopesView },
+		{ id: 'router', label: 'Router', view: RouterView },
+		{ id: 'destroy', label: 'Destroyable' },
+	];
 
-	var NeedView = getNestedView('needs', NestedView);
+	addViews(solution_slides);
+
+	var SolutionNestedView = TabbedView.extend({
+		tabOptions: {
+			scope: 'routing/solution',
+			tabs: solution_slides
+		}
+	});
+
+	var SolutionView = getNestedView('solution', SolutionNestedView);
 
 
 	var slides = [
-		{ id: 'backbone', label: 'Backbone Routing' },
-		{ id: 'limitations', label: 'Limitations' },
-		{ id: 'needs', label: 'What We Need', view: NeedView },
+		{ id: 'backbone', label: 'Backbone Routing', view: BackboneView },
+		{ id: 'needs', label: 'What We Need' },
+		{ id: 'solution', label: 'Our Solution', view: SolutionView },
 		{ id: 'caution', label: 'Caution' },
 	];
 
