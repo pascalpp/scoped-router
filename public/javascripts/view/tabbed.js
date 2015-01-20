@@ -2,10 +2,13 @@ define(function(require) {
 
 	var Marionette = require('marionette');
 	var Tabs = require('lib/behavior.tabs');
+	require('lib/addPrefixedClass');
 
 
 	var tabbed_views = [];
 
+	/* keyboard helper method for demo presentation */
+	/* enables left/right arrow keys to step through slides */
 	function handleKeyPress(e) {
 		var tabbed_view = _.last(tabbed_views);
 		if (! tabbed_view) return;
@@ -39,6 +42,7 @@ define(function(require) {
 	$(window).on('keyup', handleKeyPress);
 
 
+	/* helper view class for demo presentation */
 	var TabbedView = Marionette.LayoutView.extend({
 		className: 'tabbed',
 		template: _.template('<div class="tab-nav"></div><div class="tab-content"></div>'),
@@ -48,11 +52,15 @@ define(function(require) {
 		},
 		initialize: function() {
 			tabbed_views.push(this);
+			this.listenTo(this.tabs.model, 'change:current_tab_id', this.onChangeTab);
 		},
 		onBeforeDestroy: function() {
 			tabbed_views = _.filter(tabbed_views, function(view) {
 				return (view.cid !== this.cid);
 			}, this);
+		},
+		onChangeTab: function(model, tab) {
+			$('body').addPrefixedClass('current-tab', tab);
 		},
 		behaviors: function() {
 			var tab_options = _.extend({

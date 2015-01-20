@@ -29,6 +29,7 @@ define(function(require) {
 	var Tab = Backbone.Model.extend({
 		defaults: {
 			destroy: true,
+			label: '',
 			viewOptions: {},
 			visible: true,
 		},
@@ -70,7 +71,7 @@ define(function(require) {
 				return 'Tab viewOptions must be an object';
 			}
 
-			if (! attrs.label) {
+			if (_.isUndefined(attrs.label)) {
 				return 'Tab requires a label.';
 			}
 		}
@@ -189,6 +190,8 @@ define(function(require) {
 		initialize: function() {
 			this.options = this.options || {};
 
+			var demodelay = localStorage.getItem('demodelay') || 0; // DNR
+
 			// validate options
 			_.defaults(this.options, {
 				tabs: [],
@@ -198,6 +201,8 @@ define(function(require) {
 				wraparound: false
 			});
 			if (! this.options.region) throw new Error('Tabs behavior requires a region');
+
+			if (demodelay) this.options.show_initial_tab = false; // DNR
 
 			this.cid = _.uniqueId('tabs');
 			//console.log('tabs init', this.options.scope, this.cid);
@@ -214,8 +219,9 @@ define(function(require) {
 				if (initial_tab_id) this.options.initial_tab_id = initial_tab_id;
 			}
 
-			_.bindAll(this, 'initializeRouter');
-			_.delay(this.initializeRouter, 0); // 10000 for demo
+			// this.initializeRouter();
+			_.bindAll(this, 'initializeRouter'); // DNR - for demo
+			_.delay(this.initializeRouter, demodelay); // DNR - for demo
 
 			// set up view model and tablist
 			this.model = new Backbone.Model({ current_tab_id: this.options.initial_tab_id });

@@ -31,6 +31,7 @@ define(function(require) {
 				// it might have added a route that need to be triggered
 				// this tells Backbone.history to check the current fragment for any matching routes
 				Backbone.history.loadUrl();
+				// TODO DNR need to do ^this in a way that *only* checks this router's routes
 			} else {
 				// console.log('Backbone.history not started yet');
 				if (! Backbone.history) Backbone.history = new Backbone.History();
@@ -105,7 +106,7 @@ define(function(require) {
 				if (! current_fragment.match(re)) {
 					if (! options.force) {
 						console.error('Tab URL is out of scope.', scope, current_fragment);
-						return;
+						return this;
 					}
 				}
 			}
@@ -115,7 +116,7 @@ define(function(require) {
 			re = new RegExp(fragment);
 			if (current_fragment.match(re)) {
 				// console.log('URL is already in place, no need to write');
-				if (! options.force) return;
+				if (! options.force) return this;
 			}
 
 			// if URL is the same, but case is different, just replace the history state

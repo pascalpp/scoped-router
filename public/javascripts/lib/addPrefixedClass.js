@@ -1,6 +1,6 @@
 /*
 $.addPrefixedClass
-DOM helper for setting the a mutually-exclusive prefixed classname on a node
+DOM helper for setting a mutually-exclusive prefixed classname on a node
 e.g. $('.profile.type-foo').setPrefixedClassname('type', 'bar') will become .profile.type-bar
 */
 (function(root, factory) {

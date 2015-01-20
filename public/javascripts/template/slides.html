@@ -127,9 +127,12 @@
 </script>
 
 <script class="tabs-code">
-	<h1>Adding the Tabs behavior to a View</h1>
+	<h2>Adding the Tabs behavior to a View</h2>
 	<div class="sidenotes">
 		<div class="content">
+			<div class="note note-importtabsbehavior">
+				Import the Tabs behavior class.
+			</div>
 			<div class="note note-defineviews">
 				Define or import a View class for each tab.
 			</div>
@@ -151,13 +154,16 @@
 			<div class="note note-tabslist">
 				Pass an array of objects describing your tabs.
 			</div>
+			<div class="note note-tabscope">
+				This is the scope that will be assigned to the router for this tabbed view. When you change tabs, the URL will be updated by appending the id of the current tab to this scope.
+			</div>
 		</div>
 	</div>
 	<pre></pre>
 </script>
 
 <script class="tabs-code-sample">
-var Tabs = require('path/to/behavior/tabs');
+<span class="note" data-note="importtabsbehavior">var Tabs = require('path/to/behavior/tabs');</span>
 
 <div class="note note-defineviews" data-note="defineviews">var AppleView = require('view/apple_view');
 var BananaView = require('view/banana_view');
@@ -178,8 +184,8 @@ var CarrotView = require('view/carrot_view');
 				{ id: 'apple',  label: 'Apple',  view: AppleView  },
 				{ id: 'banana', label: 'Banana', view: BananaView },
 				{ id: 'carrot', label: 'Carrot', view: CarrotView }
-			]
-</div>		};
+			],
+</div><div class="note" data-note="tabscope">			scope: 'some/scope'</div>		};
 	}
 </div>});
 </script>
@@ -203,7 +209,7 @@ var CarrotView = require('view/carrot_view');
 	<h2>While Your App Is Running</h2>
 	<ul>
 		<li>User navigates around your app</li>
-		<li>App updates the URL to reflect the current app state</li>
+		<li>App updates the URL to reflect the current app state (<code>router.navigate</code>)</li>
 		<li>User clicks back button</li>
 		<li>URL changes, triggering a history event</li>
 		<li>Backbone.history finds the most recently added route which matches the current URL and calls its handler</li>
@@ -230,9 +236,9 @@ var CarrotView = require('view/carrot_view');
 	<h1>What we need in order to route to any tab view</h1>
 	<ul>
 		<li>We need a way for a single URL to be handled by different components in the application.</li>
-		<li>That is, we want the top-level view to respond to the first part of the URL, ignoring the rest.</li>
-		<li>That top-level view loads the tab indicated by that first parameter.</li>
-		<li>That tab can then load its own set of tabs, showing the tab indicated by the next parameter in the URL.</li>
+		<li class="scope" data-scope="1">That is, we want the top-level view to respond to the first part of the URL, ignoring the rest.</li>
+		<li>That top-level view loads the tab indicated by the first parameter.</li>
+		<li class="scope" data-scope="2">That tab can then load its own set of tabs, showing the tab indicated by the next parameter in the URL.</li>
 		<li>And so on..</li>
 	</ul>
 </script>
@@ -245,8 +251,7 @@ var CarrotView = require('view/carrot_view');
 	<h1>Our Solution</h1>
 	<ul>
 		<li>Break the URL into parts, called “scopes”</li>
-		<li>Create a router that operates within a given scope</li>
-		<li>If history has already started, a new router will check its own routes to see if they match the current URL</li>
+		<li>Create a “smart” router that operates within a given scope</li>
 		<li>Each tabbed view creates its own scoped router</li>
 		<li>When a tabbed view is closed, destroy its router and its routes</li>
 	</ul>
@@ -255,9 +260,9 @@ var CarrotView = require('view/carrot_view');
 <script class="scopes">
 	<h2>Each level in the view hierarchy is a “scope”</h2>
 	<p class="code url highlight scope0">http://host.com/routing/solution/scopes</p>
-	<p class="code url highlight scope1">http://host.com:<span class="param">routing</span><span class="ignored">/solution/scopes</span></p>
-	<p class="code url highlight scope2">http://host.com/<span class="scope">routing</span>:<span class="param">solution</span><span class="ignored">/scopes</span></p>
-	<p class="code url highlight scope3">http://host.com/<span class="scope">routing/solution</span>:<span class="param">scopes</span></p>
+	<p class="code url highlight scope1"><span class="ignored">http://host.com</span>:<span class="param">routing</span><span class="ignored">/solution/scopes</span></p>
+	<p class="code url highlight scope2"><span class="ignored">http://host.com/</span><span class="scope">routing</span>:<span class="param">solution</span><span class="ignored">/scopes</span></p>
+	<p class="code url highlight scope3"><span class="ignored">http://host.com/</span><span class="scope">routing/solution</span>:<span class="param">scopes</span></p>
 	<ul class="code">
 		<li>1st level: scope: <span class="scope">""</span>, param: <span class="param">routing</span></li>
 		<li>2nd level: scope: <span class="scope">routing</span>, param: <span class="param">solution</span></li>
@@ -275,13 +280,16 @@ var CarrotView = require('view/carrot_view');
 				The scope defines the prefix for all routes in this router. For a root-level scope, set this option to an empty string.
 			</div>
 			<div class="note note-foo">
-				Defines a route for 'some/scope/foo'. All routes are automatically prefixed with the router's scope.
+				Defines a route for <code>some/scope/foo</code>. All routes are automatically prefixed with the router's scope.
 			</div>
 			<div class="note note-bar">
-				Defines a route for 'some/scope/bar', including an optional params splat. This allows this route to match any URL that starts with 'some/scope/bar'. The handler for this route will receive the additional parameters as an argument.
+				Defines a route for <code>some/scope/bar</code>, including an optional params splat. This allows this route to match any URL that starts with <code>some/scope/bar</code>. The handler for this route will receive <code>params</code> as an argument.
 			</div>
 			<div class="note note-handlers">
 				Handlers for the above routes.
+			</div>
+			<div class="note note-automaticforthetabs">
+				Creating a scoped router is only slightly different from creating a standard Marionette AppRouter. Note that all of this is done automaticaly when you create a view that uses the Tabs behavior.
 			</div>
 		</div>
 	</div>
@@ -311,20 +319,66 @@ var Controller = Marionette.Controller.extend({
 </div>});
 </script>
 
+<script class="initialize">
+	<h2>When the Router is initialized</h2>
+	<ul>
+		<li>If Backbone.history has already started, the router checks its own routes to see if any match the current URL. If so, it calls their handlers.</li>
+		<li>If Backbone.history hasn’t started, the router starts it for us! This only works if all your routers are instances of ScopeRouter.</li>
+	</ul>
+</script>
+
+<script class="createroute">
+	<h2>When you create a route</h2>
+	<ul>
+		<li>The route is added to Backbone.history.handlers, but with an additional property: a reference to the router that “owns” that route.</li>
+		<li>This allows us to remove our routes later.</li> 
+	</ul>
+</script>
+
+<script class="navigate">
+	<h2>When you call router.navigate</h2>
+	<ul>
+		<li>You don’t have to set the whole URL — just the fragment inside your scope.</li>
+		<li>e.g. the <code>id</code> for the current tab in a tabbed view.</li>
+		<li>The router prepends the scope to your history fragment and passes that to Backbone.history.navigate.</li>
+		<li>ScopeRouter automatically figures out if the URL update should add a state to history, or if it should replace the current state.</li>
+	</ul>
+</script>
+
 <script class="destroy">
-	<h2>When the view closes, its router is destroyed</h2>
-	<p>And its routes are removed</p>
+	<h2>When the tabbed view closes</h2>
+	<ul>
+		<li>Its router is destroyed</li>
+		<li>All its routes are removed from Backbone.history.handlers</li>
+		<li>So they no longer interfere with route matching</li>
+	</ul>
 </script>
 
 
 <script class="caution">
 	<h1>A Word of Caution</h1>
 	<ul>
-		<li>This solution is not a drop-in, yet.</li>
-		<li>This solution requires some monkeypatching.</li>
-		<li>This solution works for us, so far.</li>
-		<li>It may not work for you.</li>
+		<li>This is not a drop-in solution.</li>
+		<li>Some monkeypatching required.</li>
+		<li>Built for a pretty specific use-case.</li>
+		<li>Lots of other interest work in the area of routing is happening. See also:
+			<ul>
+				<li><a href="https://github.com/ModelN/backbone.subroute/">backbone.subroute</a></li>
+				<li><a href="https://github.com/jmeas">@jmeas</a></li>
+				<li><a href="https://github.com/thejameskyle">@thejameskyle</a></li>
+			</ul>
+		</li>
 	</ul>
+</script>
+
+<script class="tryit">
+	<h1>Download this repo and try it out</h1>
+	<pre>
+$ git clone https://github.com/pascalpp/scoped-router.git
+$ cd scoped-router
+$ npm install
+$ npm start</pre>
+	<p>then open <a href="http://localhost:9000">http://localhost:9000</a></p>
 </script>
 
 

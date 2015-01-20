@@ -26,6 +26,23 @@ define(function(require) {
 
 	var BackboneView = getNestedView('backbone', BackboneNestedView);
 
+	var NeedsView = getView('needs').extend({
+		events: {
+			'mouseover li.scope': 'showScope',
+		},
+		showScope: function(e) {
+			var li = $(e.target).closest('li');
+			var scope = li.data('scope');
+			main_channel.command('show:scope', scope);
+		},
+		hideScope: function() {
+			main_channel.command('show:scope');
+		},
+		onBeforeDestroy: function() {
+			this.hideScope();
+		}
+	});
+
 
 	var ScopesView = getView('scopes').extend({
 		events: {
@@ -42,6 +59,9 @@ define(function(require) {
 		hideScope: function() {
 			this.$('ul .highlight').removeClass('highlight');
 			main_channel.command('show:scope');
+		},
+		onBeforeDestroy: function() {
+			this.hideScope();
 		}
 	});
 
@@ -73,11 +93,43 @@ define(function(require) {
 		}
 	});
 
+	var BehaviorCodeSampleView = getView('tabs-code').extend({
+		onRender: function() {
+			this.$el.addClass('code-annotations');
+			var code = $(Template).filter('script.tabs-code-sample').html();
+			this.$('pre').html(code.trim());
+			this.bindUIElements();
+		},
+		ui: {
+			codenotes: 'pre .note',
+			sidenotes: '.sidenotes .note'
+		},
+		events: {
+			'mouseover pre .note': 'showNote',
+			'mouseout pre .note': 'hideNotes'
+		},
+		showNote: function(e) {
+			e.stopPropagation();
+			this.hideNotes();
+			var note = $(e.target).addClass('active').data('note');
+			if (! note) return;
+			this.ui.sidenotes.filter('.note-'+note).show();
+		},
+		hideNotes: function() {
+			this.ui.codenotes.removeClass('active');
+			this.ui.sidenotes.hide();
+		}
+	});
+
 	var solution_slides = [
 		{ id: 'overview', label: 'Overview' },
 		{ id: 'scopes', label: 'Scopes', view: ScopesView },
 		{ id: 'router', label: 'Router', view: RouterView },
-		{ id: 'destroy', label: 'Destroyable' },
+		{ id: 'behavior', label: 'View Behavior', view: BehaviorCodeSampleView },
+		{ id: 'initialize', label: 'Router.initialize' },
+		{ id: 'createroute', label: 'Router.route' },
+		{ id: 'navigate', label: 'Router.navigate' },
+		{ id: 'destroy', label: 'View.destroy' },
 	];
 
 	addViews(solution_slides);
@@ -92,20 +144,21 @@ define(function(require) {
 	var SolutionView = getNestedView('solution', SolutionNestedView);
 
 
-	var slides = [
+	var routing_slides = [
 		{ id: 'backbone', label: 'Backbone Routing', view: BackboneView },
-		{ id: 'needs', label: 'What We Need' },
+		{ id: 'needs', label: 'What We Need', view: NeedsView },
 		{ id: 'solution', label: 'Our Solution', view: SolutionView },
+		{ id: 'tryit', label: 'Try It Out' },
 		{ id: 'caution', label: 'Caution' },
 	];
 
-	addViews(slides);
+	addViews(routing_slides);
 
 
 	var RoutingSlide = TabbedView.extend({
 		tabOptions: {
 			scope: 'routing',
-			tabs: slides
+			tabs: routing_slides
 		}
 	});
 

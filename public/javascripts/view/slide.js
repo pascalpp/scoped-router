@@ -4,6 +4,7 @@ define(function(require) {
 
 	var show_notes = true;
 
+	/* helper view class for demo presentation */
 	var SlideView = Marionette.LayoutView.extend({
 		className: 'slide',
 		onShow: function() {

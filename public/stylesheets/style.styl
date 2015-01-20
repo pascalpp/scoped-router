@@ -32,6 +32,9 @@ p
 ul li
 	margin-bottom: 0.5em
 	font-size: 1.8em
+	li
+		margin-top: 0.5em
+		font-size: 0.8em
 
 
 .buttonbar 
@@ -177,6 +180,11 @@ ul li
 code, .code
 	font-family: Andale Mono, monospace
 
+code
+	background-color: #fee;
+	padding: 0 5px
+	margin: 0 5px
+
 pre
 	tab-size: 4
 	font-size: 120%
@@ -190,6 +198,8 @@ pre
 .tab-tabbed-views .tab-code pre
 	font-size: 100%
 
+.tab-needs li.scope
+	cursor: pointer
 	
 .tab-scopes ul
 	margin: 0
@@ -285,11 +295,15 @@ pre
 
 
 	pre .note-defineviews
-		width: 570px
+		width: 590px
 	pre .note-regions
 		width: 500px
 	pre .note-behaviors
-		width: 840px
+		width: 890px
+	pre	.note-automaticforthetabs
+		width: 680px
+		padding: 10px
+		margin: -10px
 	pre .note-handlers
 		width: 520px
 
@@ -321,32 +335,47 @@ pre
 			width: 50px
 			border: 1px solid #fcc
 			
+		.note-importtabsbehavior
+			top: 10px
+		.note-importtabsbehavior:before
+			width: 132px
 		.note-defineviews
-			top: 70px
+			top: 90px
 		.note-defineviews:before
 			width: 130px
 		.note-tabbedview
-			top: 157px
+			top: 180px
 		.note-tabbedview:before
-			width: 112px
+			width: 65px
 		.note-regions
-			top: 190px
+			top: 220px
 		.note-regions:before
 			top: 50px
 			width: 200px
 		.note-behaviors
-			top: 320px
-			left: 190px
+			top: 350px
+			left: 240px
 		.note-tabregion
-			top: 390px
-			left: 190px
+			top: 430px
+			left: 240px
 		.note-navoptions
-			top: 420px
-			left: 190px
+			top: 460px
+			left: 240px
 		.note-tabslist
-			top: 520px
-			left: 190px
+			top: 560px
+			left: 240px
+		.note-tabscope
+			top: 620px
+			left: 240px
+		.note-tabscope:before
+			top: 80px
 			
+		.note-automaticforthetabs
+			display: block
+			left: -20px
+			top: 20px
+		.note-automaticforthetabs:before
+			display: none
 		.note-scoperouter
 			top: 12px
 		.note-scope
@@ -379,5 +408,16 @@ pre
 	background-position: top right
 	background-repeat: no-repeat
 	background-image: url(/images/caution.png)
+	padding-right: 700px
 
+.tab-tryit
+	pre
+		line-height: 40px
+		background-color: #fff
+		padding: 15px 20px
+		margin: -20px
+		margin-top: 10px
+		border: 1px solid rgba(0,0,0,0.1)
+	p
+		font-size: 36px
 
