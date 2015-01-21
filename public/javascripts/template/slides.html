@@ -26,24 +26,6 @@
 		<li>Track history and respond appropriately to back/forward buttons</li>
 		<li>Link directly link to any tab in the view hierarchy</li>
 	</ul>
-
-	<div class="notes">
-		We needed a way to display Marionette views in a tabbed user interface,
-		with a configurable nav and a region that would be populated
-		with a view for each tab.
-		
-		We needed to be able to enable or disable the tabs dynamically,
-		so a tab could be hidden from view under various conditions.
-
-		We also needed to nest multiple levels of tabbed views.
-		We didn't need infinite depth, but decided any solution worth its salt
-		would be able to handle infinite levels of tabs.
-		
-		We needed to have routing set up so we can link directly
-		to any nested view in the hierarchy.
-		
-		And that routing should no longer apply if the tabbed view is no longer visible.
-	</div>
 </script>
 
 <script class="anatomy">
@@ -56,7 +38,7 @@
 
 
 <script class="apple">
-	<h2>Tabs are a Marionette Behavior</h2>
+	<h2>LayoutView + Tabs Behavior</h2>
 	<ul>
 		<li>View provides a tab region</li>
 		<li>View can also provide a nav region</li>
@@ -84,7 +66,7 @@
 		<li>label: "Banana"</li>
 		<li>view: any Backbone.View</li>
 		<li>viewOptions: (optional)</li>
-		<li>visible: true || false</li>
+		<li>visible: <span class="true">true</span> || <span class="false">false</span></li>
 	</ul>
 	<div class="notes">
 		Each tab has an id, which is also used for routing, which I'll get into later.
@@ -96,7 +78,7 @@
 	</div>
 </script>
 <script class="carrot">
-	<h2>A TabList is a Collection</h2>
+	<h2>The Tabs Behavior does the rest</h2>
 	<ul>
 		<li>The View passes an array of tabs<br>to the Tabs behavior</li>
 		<li>The Tabs behavior converts the array into a collection</li>
@@ -127,7 +109,7 @@
 </script>
 
 <script class="tabs-code">
-	<h2>Adding the Tabs behavior to a View</h2>
+	<h2>Adding the Tabs Behavior to a View</h2>
 	<div class="sidenotes">
 		<div class="content">
 			<div class="note note-importtabsbehavior">
@@ -198,17 +180,17 @@ var CarrotView = require('view/carrot_view');
 <script class="appstart">
 	<h2>App Initialization</h2>
 	<ul>
-		<li>Start your app</li>
-		<li>Instantiate your router(s)</li>
+		<li>Start the app</li>
+		<li>Instantiate router(s)</li>
 		<li>Router(s) add routes to Backbone.history.handlers array</li>
 		<li>Start Backbone.history</li>
 		<li>Backbone.history finds the most recently added route which matches the current URL and calls its handler</li>
 	</ul>
 </script>
 <script class="apprunning">
-	<h2>While Your App Is Running</h2>
+	<h2>While the App Is Running</h2>
 	<ul>
-		<li>User navigates around your app</li>
+		<li>User navigates around the app</li>
 		<li>App updates the URL to reflect the current app state (<code>router.navigate</code>)</li>
 		<li>User clicks back button</li>
 		<li>URL changes, triggering a history event</li>
@@ -251,7 +233,7 @@ var CarrotView = require('view/carrot_view');
 	<h1>Our Solution</h1>
 	<ul>
 		<li>Break the URL into parts, called “scopes”</li>
-		<li>Create a “smart” router that operates within a given scope</li>
+		<li>Create a router that operates within a given scope</li>
 		<li>Each tabbed view creates its own scoped router</li>
 		<li>When a tabbed view is closed, destroy its router and its routes</li>
 	</ul>
@@ -322,7 +304,7 @@ var Controller = Marionette.Controller.extend({
 <script class="initialize">
 	<h2>When the Router is initialized</h2>
 	<ul>
-		<li>If Backbone.history has already started, the router checks its own routes to see if any match the current URL. If so, it calls their handlers.</li>
+		<li>If Backbone.history has already started, the router checks its own routes to see if any match the current URL.</li>
 		<li>If Backbone.history hasn’t started, the router starts it for us! This only works if all your routers are instances of ScopeRouter.</li>
 	</ul>
 </script>
@@ -372,7 +354,7 @@ var Controller = Marionette.Controller.extend({
 </script>
 
 <script class="tryit">
-	<h1>Download this repo and try it out</h1>
+	<h1>Download this demo and try it out</h1>
 	<pre>
 $ git clone https://github.com/pascalpp/scoped-router.git
 $ cd scoped-router

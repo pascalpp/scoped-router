@@ -148,8 +148,8 @@ define(function(require) {
 		{ id: 'backbone', label: 'Backbone Routing', view: BackboneView },
 		{ id: 'needs', label: 'What We Need', view: NeedsView },
 		{ id: 'solution', label: 'Our Solution', view: SolutionView },
-		{ id: 'tryit', label: 'Try It Out' },
 		{ id: 'caution', label: 'Caution' },
+		{ id: 'tryit', label: 'Try It Out' },
 	];
 
 	addViews(routing_slides);
