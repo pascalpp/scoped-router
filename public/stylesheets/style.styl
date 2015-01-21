@@ -104,13 +104,22 @@ ul li
 .tab .notes
 	display: none
 
-.tab-intro.slide
-	font-size: 36px
+.tab-intro
+	justify-content: center
+	align-items: center
 	height: 600px
-	background-position: 140px center
+	overflow: hidden
+
+.tab-intro > div
+	font-size: 36px
+	background-position: left top
 	background-repeat: no-repeat
 	background-image: url(/images/tab-cola.png)
-	padding-left: 480px
+	padding-left: 320px
+	padding-top: 50px
+	height: 400px
+	margin-left: -80px
+
 
 .tab-intro p
 	max-width: none
@@ -136,9 +145,6 @@ ul li
 	justify-content: start
 	align-content: space-between
 	padding: 35px 50px 50px
-
-.tab-intro
-	justify-content: center
 
 .tab-anatomy
 	padding-bottom: 30px
