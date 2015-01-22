@@ -50,7 +50,6 @@ define(function(require) {
 	var slides = [
 		{ id: 'goals', label: 'Goals', view: GoalsView },
 		{ id: 'anatomy', label: 'Anatomy', view: AnatomyView },
-		{ id: 'examples', label: 'Examples' },
 	];
 
 	addViews(slides);
