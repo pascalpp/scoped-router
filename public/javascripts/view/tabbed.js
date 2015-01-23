@@ -19,8 +19,10 @@ define(function(require) {
 			case 37:
 				var first_tab = tabbed_view.tabs.collection.first().get('id');
 				if (first_tab === current_tab) {
-					tabbed_views.pop();
-					handleKeyPress(e);
+					if (tabbed_views.length > 1) {
+						tabbed_views.pop();
+						handleKeyPress(e);
+					}
 				} else {
 					tabbed_view.triggerMethod('previous');
 				}
@@ -28,8 +30,10 @@ define(function(require) {
 			case 39:
 				var last_tab = tabbed_view.tabs.collection.last().get('id');
 				if (last_tab === current_tab) {
-					tabbed_views.pop();
-					handleKeyPress(e);
+					if (tabbed_views.length > 1) {
+						tabbed_views.pop();
+						handleKeyPress(e);
+					}
 				} else {
 					tabbed_view.triggerMethod('next');
 				}

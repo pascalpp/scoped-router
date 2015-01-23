@@ -6,6 +6,11 @@ define(function(require) {
 	var Marionette = require('marionette');
 	var Router = require('./router');
 
+	/*
+	NOTE: don't look too closely at this code :)
+	I plan to publish this behavior in its own repo, but I have a bit of refactoring to do before I release it.
+	*/
+
 
 	var controller;
 
